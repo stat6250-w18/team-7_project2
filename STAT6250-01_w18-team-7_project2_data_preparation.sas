@@ -86,3 +86,51 @@ race/ethnic designation and gender by school in AY2015-2016
 
 
 * environmental setup;
+
+* setup environmental parameters;
+
+%let inputDataset1URL =
+
+https:https:https://github.com/stat6250/team-7_project2/blob/master/Data/Enrollment1516.xls?raw=true
+
+;
+
+%let inputDataset1Type = XLS;
+
+%let inputDataset1DSN = Enrollment1516_raw;
+
+
+
+%let inputDataset2URL =
+
+https://github.com/stat6250/team-7_project2/blob/master/Data/Eth_grad_1415.xls?raw=true
+
+;
+
+%let inputDataset2Type = XLS;
+
+%let inputDataset2DSN = Eth_grad_1415_raw;
+
+
+
+%let inputDataset3URL =
+
+https://github.com/stat6250/team-7_project2/blob/master/Data/Eth_grad_1516.xls?raw=true
+
+;
+
+%let inputDataset3Type = XLS;
+
+%let inputDataset3DSN = Eth_grad_1516_raw;
+
+
+
+%let inputDataset4URL =
+
+https://github.com/stat6250/team-7_project2/blob/master/Data/Race_dropout1516.xls?raw=true
+
+;
+
+%let inputDataset4Type = XLS;
+
+%let inputDataset4DSN = Race_dropout1516_raw;
