@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-1
-=======
-*******************************************************************************;
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
 *******************************************************************************;
@@ -24,4 +20,78 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
->>>>>>> 839e5d5adf9bad42b5f1c3d83445e9959e341923
+title1
+'Research Question: What are the top 5 districts experienced the most percentage change of graduates in minority (non-white) from 2014/2015 to 2015/2016?'
+;
+
+title2
+'Rationale: It helps find out if there’s any significant change of number of graduates in certain districts.' 
+;
+
+footnote1
+''
+;
+*
+Methodology: 
+
+Limitations: 
+
+Possible Follow-up Steps: 
+;
+
+
+title;
+footnote;
+
+
+
+
+title1
+'Research Question: What are the top 10 schools experienced the highest number of drop out and lowest enrollment in 2015/2016'
+;
+
+title2
+'Rationale: It helps find out what some of the school experience imbalance number of students.' 
+;
+
+footnote1
+''
+;
+*
+Methodology: 
+
+Limitations: 
+
+Possible Follow-up Steps: 
+;	
+
+title;
+footnote;
+
+
+
+
+
+title1
+'Research Question: Which race experienced the highest number of drop out and lowest enrollment in 2015/2016?'
+;
+
+title2
+'Rationale: It helps find out what race experienced the largest dispersion number of enrollment and dropout in schools.'
+;
+
+footnote1
+''
+;
+*
+Methodology: 
+
+Limitations: 
+
+Possible Follow-up Steps:  
+;
+
+title;
+footnote;
+
+
