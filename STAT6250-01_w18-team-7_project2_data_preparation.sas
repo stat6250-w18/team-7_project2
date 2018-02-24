@@ -86,3 +86,84 @@ race/ethnic designation and gender by school in AY2015-2016
 
 
 * environmental setup;
+
+
+*setup environmental parameters;
+%let inputDataset1URL = 
+https://github.com/stat6250/team-7_project2/blob/master/Data/Eth_grad_1415.xls?raw=true
+;
+%let inputDataset1Type = XLS;
+%let inputDataset1DSN = Eth_grad_1415;
+
+%let inputDataset2URL = 
+https://github.com/stat6250/team-7_project2/blob/master/Data/Eth_grad_1516.xls?raw=true
+;
+%let inputDataset2Type = XLS;
+%let inputDataset2DSN = Eth_grad_1516;
+
+%let inputDataset3URL = 
+https://github.com/stat6250/team-7_project2/blob/master/Data/Enrollment1516.xls?raw=true
+;
+%let inputDataset3Type = XLS;
+%let inputDataset3DSN = Enrollment1516;
+
+%let inputDataset4URL = 
+https://github.com/stat6250/team-7_project2/blob/master/Data/Race_dropout1516.xls?raw=true
+;
+%let inputDataset4Type = XLS;
+%let inputDataset4DSN = Race_dropout1516;
+
+
+* load raw FRPM dataset over the wire;
+%macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
+    %put &=dsn;
+    %put &=url;
+    %put &=filetype;
+    %if
+        %sysfunc(exist(&dsn.)) = 0
+    %then
+        %do;
+            %put Loading dataset &dsn. over the wire now...;
+            filename tempfile "%sysfunc(getoption(work))/tempfile.xlsx";
+            proc http
+                method="get"
+                url="&url."
+                out=tempfile
+                ;
+            run;
+            proc import
+                file=tempfile
+                out=&dsn.
+                dbms=&filetype.;
+            run;
+            filename tempfile clear;
+        %end;
+    %else
+        %do;
+            %put Dataset &dsn. already exists. Please delete and try again.;
+        %end;
+%mend;
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset1DSN.,
+    &inputDataset1URL.,
+    &inputDataset1Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset2DSN.,
+    &inputDataset2URL.,
+    &inputDataset2Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset3DSN.,
+    &inputDataset3URL.,
+    &inputDataset3Type.
+)
+%loadDataIfNotAlreadyAvailable(
+    &inputDataset4DSN.,
+    &inputDataset4URL.,
+    &inputDataset4Type.
+)
+
+
+
+
