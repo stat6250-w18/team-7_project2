@@ -81,101 +81,67 @@ race/ethnic designation and gender by school in AY2015-2016
 [Unique ID Schema] The column CDS_CODE is a unique id.
 
 ----
-
 ;
 
+*setup environmental parameters;
 
-* environmental setup;
-
-* setup environmental parameters;
-
-%let inputDataset1URL =
-
+%let inputDataset1URL = 
 https://github.com/stat6250/team-7_project2/blob/master/Data/Eth_grad_1415.xls?raw=true
-
 ;
 
 %let inputDataset1Type = XLS;
-
-%let inputDataset1DSN = Eth_grad1415_raw;
-
+%let inputDataset1DSN = Eth_grad_1415;
 
 
-%let inputDataset2URL =
-
+%let inputDataset2URL = 
 https://github.com/stat6250/team-7_project2/blob/master/Data/Eth_grad_1516.xls?raw=true
-
 ;
 
 %let inputDataset2Type = XLS;
-
-%let inputDataset2DSN = Eth_grad1516_raw;
-
+%let inputDataset2DSN = Eth_grad_1516;
 
 
-%let inputDataset3URL =
-
+%let inputDataset3URL = 
 https://github.com/stat6250/team-7_project2/blob/master/Data/Enrollment1516.xls?raw=true
-
 ;
 
 %let inputDataset3Type = XLS;
-
-%let inputDataset3DSN = Enrollment1516_raw;
-
+%let inputDataset3DSN = Enrollment1516;
 
 
-%let inputDataset4URL =
-
+%let inputDataset4URL = 
 https://github.com/stat6250/team-7_project2/blob/master/Data/Race_dropout1516.xls?raw=true
-
 ;
 
 %let inputDataset4Type = XLS;
+%let inputDataset4DSN = Race_dropout1516;
 
-%let inputDataset4DSN = Race_dropout1516_raw;
 
 
-* load raw datasets over the wire, if they doesn't already exist;
+* load raw FRPM dataset over the wire;
 
 %macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
-
     %put &=dsn;
-
     %put &=url;
-
     %put &=filetype;
-
     %if
-
         %sysfunc(exist(&dsn.)) = 0
-
     %then
-
         %do;
-
             %put Loading dataset &dsn. over the wire now...;
-
             filename tempfile "%sysfunc(getoption(work))/tempfile.xlsx";
 
             proc http
 
                 method="get"
-
                 url="&url."
-
                 out=tempfile
-
                 ;
 
             run;
-
             proc import
-
                 file=tempfile
-
                 out=&dsn.
-
                 dbms=&filetype.;
 
             run;
@@ -183,54 +149,89 @@ https://github.com/stat6250/team-7_project2/blob/master/Data/Race_dropout1516.xl
             filename tempfile clear;
 
         %end;
-
     %else
-
         %do;
-
             %put Dataset &dsn. already exists. Please delete and try again.;
-
         %end;
-
 
 %mend;
 
 %loadDataIfNotAlreadyAvailable(
-
     &inputDataset1DSN.,
-
     &inputDataset1URL.,
-
     &inputDataset1Type.
-
 )
 
 %loadDataIfNotAlreadyAvailable(
-
     &inputDataset2DSN.,
-
     &inputDataset2URL.,
-
     &inputDataset2Type.
-
 )
 
 %loadDataIfNotAlreadyAvailable(
-
     &inputDataset3DSN.,
-
     &inputDataset3URL.,
-
     &inputDataset3Type.
-
 )
 
 %loadDataIfNotAlreadyAvailable(
-
     &inputDataset4DSN.,
-
     &inputDataset4URL.,
-
     &inputDataset4Type.
-
 )
+
+* sort and check raw data sets for duplicates with respect to primary keys,
+  data contains no blank rows so no steps to remove blanks is needed;
+
+
+proc sort
+
+        nodupkey
+        data=Eth_grad_1415
+        out=Eth_grad_1415_sorted(where=(not(missing(CDS_CODE))))
+    ;
+    by
+        CDS_CODE
+        County
+    ;
+
+run;
+
+proc sort
+
+        nodupkey
+        data=Eth_grad1516
+        out=Eth_grad1516_sorted(where=(not(missing(CDS_CODE))))
+    ;
+    by
+        CDS_CODE
+    ;
+
+run;
+
+proc sort
+
+        nodupkey
+        data=Race_dropout1516
+        out=Race_dropout1516_sorted(where=(not(missing(CDS_CODE))))
+    ;
+    by
+        CDS_CODE
+        ETHNIC
+    ;
+
+run;
+
+proc sort
+
+        nodupkey
+        data=Erollment1516
+        out=Erollment1516_sorted(where=(not(missing(CDS_CODE))))
+    ;
+    by
+
+        CDS_CODE
+        ETHNIC
+    ;
+
+run;
