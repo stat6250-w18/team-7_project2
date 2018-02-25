@@ -38,12 +38,9 @@ footnote2
 'This change can help the california government make right decision on education.'
 ;
 
-
 *
-
 Note: This compares the column "Total" from Eth_grad_1415 to the column of the 
 same name from Eth_grad_1516.
-
 
 Methodology: When combining Eth_grad_1415 with Eth_grad_1516 during data preparation,
 take the difference of values of "Total graduates" for each school and
@@ -52,10 +49,8 @@ use proc sort to create a temporary sorted table in descending by
 grad_change_2014_to_2015. Finally, use proc print here to display the
 first ten rows of the sorted dataset.
 
-
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way.
-
 
 Followup Steps: More carefully clean values in order to filter out any possible
 illegal values, and better handle missing data, e.g., by using a previous year's
@@ -78,11 +73,8 @@ title;
 footnote;
 
 
-
 *******************************************************************************;
-
 * Research Question Analysis Starting Point;
-
 *******************************************************************************;
 
 title1
@@ -95,7 +87,7 @@ title2
 
 footnote1
 'Based on descriptive statistic for data set Eth_grad_1516, the percentage of ethnicity in 
-graduates is different in each county.
+graduates is different in each county.'
 ;
 
 *
@@ -124,28 +116,20 @@ footnote;
 
 
 *******************************************************************************;
-
 * Research Question Analysis Starting Point;
-
 *******************************************************************************;
 
 title1
 'Research Question: Is the dropouts related to the students’ race or enrollment?' 
 ;
 title2
-'Rationale: This would help policymakers and educators trying to understand and solve this complex social and educational problem.'
+'Rationale: This would help policy makers and educators trying to understand and solve this complex social and educational problem.'
 ;
-
 footnote1
 
 ;
 
-footnote2
-
-;
-
 *
-
 Note: This compares the column ethnic and dropout. 
 
 Methodology: When combining enrollment1516 and Race_dropout1516 during data preparation.
@@ -160,4 +144,9 @@ handle missing data, e.g., by using a previous year's data or a rolling average
 of previous years' data as a proxy.
 ;
 
+proc print data=Erollment1516_sorted
 
+    var ETHNIC ENR_TOTAL
+run;
+title;
+footnote;
