@@ -125,16 +125,11 @@ title1
 title2
 'Rationale: This would help policy makers and educators trying to understand and solve this complex social and educational problem.'
 ;
-
 footnote1
 
 ;
 
-
-;
-
 *
-
 Note: This compares the column ethnic and dropout. 
 
 Methodology: When combining enrollment1516 and Race_dropout1516 during data preparation.
@@ -149,4 +144,9 @@ handle missing data, e.g., by using a previous year's data or a rolling average
 of previous years' data as a proxy.
 ;
 
+proc print data=Erollment1516_sorted
 
+    var ETHNIC ENR_TOTAL
+run;
+title;
+footnote;
