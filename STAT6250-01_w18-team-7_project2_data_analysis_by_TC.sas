@@ -40,14 +40,14 @@ Possible Follow-up Steps:
 ;
 
 proc sql outobs=5;
-	select Eth_grad_1415.DISTRICT,
+    select Eth_grad_1415.DISTRICT,
            (((Eth_grad_1516.TOTAL-Eth_grad_1516.WHITE)-
 (Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE))/(Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE))
-           as Percentage_Changes format=6.2
-		from Eth_grad_1415, Eth_grad_1516
-		where Eth_grad_1415.DISTRICT=Eth_grad_11516
-		group by Eth_grad_1415
-		order by Percentage_Changes desc;
+as Percentage_Changes format=6.2
+        from Eth_grad_1415, Eth_grad_1516
+        where Eth_grad_1415.DISTRICT=Eth_grad_11516
+        group by Eth_grad_1415
+        order by Percentage_Changes desc;
 Quit;  
 title;
 footnote;
@@ -76,12 +76,12 @@ Possible Follow-up Steps:
 
 Proc sql outobs=10;
     select Enrollment_1516.CSD_CODE, Enrollment_1516.ENR_TOTAL,
-	       Race_dropout1516.DTOT,
-	       Race_dropout1516.DTOT,Enrollment_1516.ENR_Total-Race_dropout1516.DTOT as ENR-DRP
-		from Enrollment_1516, Race_dropout1516
-		where Enrollment_1516.CSD_CODE=Race_dropout1516.CSD_CODE
-		group by Enrollment_1516.CSD_CODE
-		order by ENR-DRP desc;
+           Race_dropout1516.DTOT,
+           Race_dropout1516.DTOT,Enrollment_1516.ENR_Total-Race_dropout1516.DTOT as ENR-DRP
+        from Enrollment_1516, Race_dropout1516
+        where Enrollment_1516.CSD_CODE=Race_dropout1516.CSD_CODE
+        group by Enrollment_1516.CSD_CODE
+        order by ENR-DRP desc;
 QUIT;
 title;
 footnote;
@@ -110,12 +110,12 @@ Possible Follow-up Steps:
 ;
 Proc sql;
     select Enrollment_1516.ETHNIC, Enrollment_1516.ENR_TOTAL,
-	       Race_dropout1516.DTOT,
-	       Race_dropout1516.DTOT,Enrollment_1516.ENR_Total-Race_dropout1516.DTOT as ENR-DRP
-		from Enrollment_1516, Race_dropout1516
-		where Enrollment_1516.ETHNIC=Race_dropout1516.ETHNIC
-		group by Enrollment_1516.ETHIC
-		order by ENR-DRP desc;
+           Race_dropout1516.DTOT,
+           Race_dropout1516.DTOT,Enrollment_1516.ENR_Total-Race_dropout1516.DTOT as ENR-DRP
+        from Enrollment_1516, Race_dropout1516
+        where Enrollment_1516.ETHNIC=Race_dropout1516.ETHNIC
+        group by Enrollment_1516.ETHIC
+        order by ENR-DRP desc;
 QUIT;
 title;
 footnote;
