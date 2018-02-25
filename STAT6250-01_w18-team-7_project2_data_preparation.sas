@@ -164,6 +164,53 @@ https://github.com/stat6250/team-7_project2/blob/master/Data/Race_dropout1516.xl
     &inputDataset4Type.
 )
 
+data Eth_grad_1415_analytics;
+    retain 
+	    DISTRICT
+		HISPANIC
+		AM_IND
+		ASIAN
+		PAC_ISLD
+		FILIPINO
+		AFRICAN_AM
+		TWO_MORE_RACES
+	;
+	keep
+	    DISTRICT
+		HISPANIC
+		AM_IND
+		ASIAN
+		PAC_ISLD
+		FILIPINO
+		AFRICAN_AM
+		TWO_MORE_RACES
+	;
+	set Eth_grad_1415
+run; 
+
+data Eth_grad_1516_analytics;
+    retain 
+	    DISTRICT
+		HISPANIC
+		AM_IND
+		ASIAN
+		PAC_ISLD
+		FILIPINO
+		AFRICAN_AM
+		TWO_MORE_RACES
+	;
+	keep
+	    DISTRICT
+		HISPANIC
+		AM_IND
+		ASIAN
+		PAC_ISLD
+		FILIPINO
+		AFRICAN_AM
+		TWO_MORE_RACES
+	;
+	set Eth_grad_1516
+run; 
 
 
 
