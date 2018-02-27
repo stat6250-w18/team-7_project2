@@ -41,13 +41,12 @@ Possible Follow-up Steps:
 
 proc sql outobs=5;
     select Eth_grad_1415.DISTRICT,
-           (((Eth_grad_1516.TOTAL-Eth_grad_1516.WHITE)-
-(Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE))/(Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE))
-as Percentage_Changes format=6.2
+	       Eth_grad_1516.TOTAL-Eth_grad_1516.WHITE as TOT_WHI1516,
+		   Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE as TOT_WHI1415,
+		   ((TOT_WHI1516-TOT_WHI1415)/TOT_WHI1415) as Percentage_Changes format=6.2
         from Eth_grad_1415, Eth_grad_1516
-        where Eth_grad_1415.DISTRICT=Eth_grad_11516
-        group by Eth_grad_1415
-        order by Percentage_Changes desc;
+        where Eth_grad_1415.DISTRICT=Eth_grad_1516.DISTRICT
+        group by Eth_grad_1415.DISTRICT;
 Quit;  
 title;
 footnote;
@@ -75,13 +74,12 @@ Possible Follow-up Steps:
 ;	
 
 Proc sql outobs=10;
-    select Enrollment_1516.CSD_CODE, Enrollment_1516.ENR_TOTAL,
-           Race_dropout1516.DTOT,
-           Race_dropout1516.DTOT,Enrollment_1516.ENR_Total-Race_dropout1516.DTOT as ENR-DRP
-        from Enrollment_1516, Race_dropout1516
-        where Enrollment_1516.CSD_CODE=Race_dropout1516.CSD_CODE
-        group by Enrollment_1516.CSD_CODE
-        order by ENR-DRP desc;
+    select Enrollment1516.CDS_CODE, Enrollment1516.ENR_TOTAL,
+           Race_dropout1516.DTOT,Enrollment1516.ENR_Total-Race_dropout1516.DTOT
+           as ENR_subtract_DRP
+        from Enrollment1516, Race_dropout1516
+        where Enrollment1516.CDS_CODE=Race_dropout1516.CDS_CODE
+        group by Enrollment1516.CDS_CODE;
 QUIT;
 title;
 footnote;
@@ -109,13 +107,11 @@ Limitations:
 Possible Follow-up Steps:  
 ;
 Proc sql;
-    select Enrollment_1516.ETHNIC, Enrollment_1516.ENR_TOTAL,
-           Race_dropout1516.DTOT,
-           Race_dropout1516.DTOT,Enrollment_1516.ENR_Total-Race_dropout1516.DTOT as ENR-DRP
-        from Enrollment_1516, Race_dropout1516
-        where Enrollment_1516.ETHNIC=Race_dropout1516.ETHNIC
-        group by Enrollment_1516.ETHIC
-        order by ENR-DRP desc;
+    select Enrollment1516.ETHNIC, Enrollment1516.ENR_TOTAL,
+           Race_dropout1516.DTOT,Enrollment1516.ENR_Total-Race_dropout1516.DTOT as ENR_Subtract_DRP
+        from Enrollment1516, Race_dropout1516
+        where Enrollment1516.ETHNIC=Race_dropout1516.ETHNIC
+        group by Enrollment1516.ETHNIC;
 QUIT;
 title;
 footnote;
