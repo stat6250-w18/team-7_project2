@@ -179,6 +179,8 @@ https://github.com/stat6250/team-7_project2/blob/master/Data/Race_dropout1516.xl
     &inputDataset4URL.,
     &inputDataset4Type.
 )
+<<<<<<< HEAD
+=======
 
 * sort and check raw data sets for duplicates with respect to primary keys,
   data contains no blank rows so no steps to remove blanks is needed;
@@ -278,3 +280,4 @@ run;
 
 
 
+>>>>>>> 3e7ce88b2a7a900bb68d7ea3a0eb85015227a5c7
