@@ -12,7 +12,7 @@ questions regarding college-preparation trends at CA public K-12 schools
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file 
+* load external file;
 %include '.\STAT6250-01_w18-team-7_project2_data_preparation.sas';
 
 
@@ -41,12 +41,12 @@ Possible Follow-up Steps:
 
 proc sql outobs=5;
     select Eth_grad_1415.DISTRICT,
-	       Eth_grad_1516.TOTAL-Eth_grad_1516.WHITE as TOT_WHI1516,
-		   Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE as TOT_WHI1415,
-		   ((TOT_WHI1516-TOT_WHI1415)/TOT_WHI1415) as Percentage_Changes format=6.2
+		   sum(Eth_grad_1516.TOTAL-Eth_grad_1516.WHITE) as Yr1516,
+           sum(Eth_grad_1415.TOTAL-Eth_grad_1415.WHITE) as Yr1415,
         from Eth_grad_1415, Eth_grad_1516
         where Eth_grad_1415.DISTRICT=Eth_grad_1516.DISTRICT
-        group by Eth_grad_1415.DISTRICT;
+        group by Eth_grad_1415.DISTRICT
+        order by Percentage_Changes;
 Quit;  
 title;
 footnote;
@@ -74,12 +74,13 @@ Possible Follow-up Steps:
 ;	
 
 Proc sql outobs=10;
-    select Enrollment1516.CDS_CODE, Enrollment1516.ENR_TOTAL,
-           Race_dropout1516.DTOT,Enrollment1516.ENR_Total-Race_dropout1516.DTOT
-           as ENR_subtract_DRP
+    select Enrollment1516.CDS_CODE, sum(Enrollment1516.ENR_TOTAL) as Enr_Total,
+           sum(Race_dropout1516.DTOT) as Race_drop,
+           Enr_Total-Race_dropout as ENR_subtract_DRP
         from Enrollment1516, Race_dropout1516
         where Enrollment1516.CDS_CODE=Race_dropout1516.CDS_CODE
-        group by Enrollment1516.CDS_CODE;
+        group by Enrollment1516.CDS_CODE
+        order by ENR_subtract_DRP;
 QUIT;
 title;
 footnote;
@@ -106,12 +107,13 @@ Limitations:
 
 Possible Follow-up Steps:  
 ;
-Proc sql;
-    select Enrollment1516.ETHNIC, Enrollment1516.ENR_TOTAL,
-           Race_dropout1516.DTOT,Enrollment1516.ENR_Total-Race_dropout1516.DTOT as ENR_Subtract_DRP
+Proc sql outobs=10;
+    select Enrollment1516.ETHNIC, sum(Enrollment1516.ENR_TOTAL) as EnrTotal,
+           sum(Race_dropout1516.DTOT) as Racedrop, Enrollment1516.ENR_Total-Race_dropout1516.DTOT as ENR_Subtract_DRP
         from Enrollment1516, Race_dropout1516
         where Enrollment1516.ETHNIC=Race_dropout1516.ETHNIC
-        group by Enrollment1516.ETHNIC;
+        group by Enrollment1516.ETHNIC
+        order by ENR_Subtract_DRP;
 QUIT;
 title;
 footnote;
