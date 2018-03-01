@@ -2,7 +2,6 @@
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
 *******************************************************************************;
-
 *
 [Dataset 1 Name] Eth_grad_1415
 
@@ -265,7 +264,6 @@ proc means data=Eth_grad_1516_sorted mean sum;
 
 
 
-
 data Eth_grad_1415_1516;
 
     merge
@@ -279,5 +277,3 @@ data Eth_grad_1415_1516;
 run;
 
 
-
->>>>>>> 3e7ce88b2a7a900bb68d7ea3a0eb85015227a5c7
