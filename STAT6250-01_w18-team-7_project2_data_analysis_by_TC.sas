@@ -20,6 +20,7 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
+
 title1
 'Research Question: What are the top 5 school experienced the most percentage change of graduates in minority (non-white) from 2014/2015 to 2015/2016?'
 ;
@@ -109,12 +110,14 @@ title;
 footnote;
 
 
+
+
 title1
 'Research Question: Which race experienced the largest difference between drop out and enrollment in 2015/2016?'
 ;
 
 title2
-'Rationale: It helps find out what race experienced the largest dispersion number of enrollment and dropout in schools.'
+'Rationale: It helps find out what race experienced the largest dropout and enrollment in schools.'
 ;
 
 footnote1
@@ -128,7 +131,7 @@ Limitations:
 Possible Follow-up Steps:  
 ;
 Proc sql;
-    select Enr_race_sum.ETHNIC,
+    select Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total,
            Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total as ENR_Subtract_DRP
         from Enr_race_sum, Drop_race_sum
         where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
