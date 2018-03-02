@@ -139,32 +139,3 @@ title;
 footnote;
 
 
-title1
-'Research Question: Which race experienced the largest difference between drop out and enrollment in 2015/2016?'
-;
-
-title2
-'Rationale: It helps find out what race experienced the largest dispersion number of enrollment and dropout in schools.'
-;
-
-footnote1
-''
-;
-*
-Methodology: 
-
-Limitations: 
-
-Possible Follow-up Steps:  
-;
-Proc sql outobs=10;
-    select Enrollment1516.ETHNIC, sum(Enrollment1516.ENR_TOTAL) as EnrTotal,
-           sum(Race_dropout1516.DTOT) as Racedrop, Enrollment1516.ENR_Total-Race_dropout1516.DTOT as ENR_Subtract_DRP
-        from Enrollment1516, Race_dropout1516
-        where Enrollment1516.ETHNIC=Race_dropout1516.ETHNIC
-        group by Enrollment1516.ETHNIC
-        order by Enrollment1516.ENR_Total-Race_dropout1516.DTOT;
-QUIT;
-title;
-footnote;
-
