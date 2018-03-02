@@ -41,7 +41,7 @@ footnote3
 ;
 
 footnote4
-'Five school have the most negative change in number of miniority graduates. The most interesting fact is that one of them is Mountain View High School in Silicon Valley.'
+'Five schools have the most negative change in number of miniority graduates. The most interesting fact is that one of them is Mountain View High School in Silicon Valley.'
 ;
 
 footnote5
