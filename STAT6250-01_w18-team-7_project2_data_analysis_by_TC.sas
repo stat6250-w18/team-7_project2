@@ -41,22 +41,24 @@ footnote3
 ;
 
 footnote4
-'Five schools have the most negative change in number of miniority graduates. The most interesting fact is that one of them is Mountain View High School in Silicon Valley.'
+'The most negative change in number of miniority graduates is 100%. However, the number difference is not significant'
 ;
-
-footnote5
-'As being one of the competitive cities, dropping a significant '
 *
-Methodology:
+Methodology: Use Proc Sql to extract values from Eth_Diff and create a new 
+variable to calculate the percentage changes. I created two tables fro positive 
+change and negative change. 
 
-Limitations:
+Limitations: This could not show which districts experience the dramatic boost 
+or drop in miniority graduates, which would show a bigger picture issue. 
 
-Possible Follow-up Steps:
+Possible Follow-up Steps:Get rid of the CDS_CODE and add district column from 
+Eth_grad_1415 and Eth_grad_1516 and group by district to show the percent change 
+for each district. 
 ;
 
 proc sql OUTOBS=5;
-    title 'Positive Change in number of minority graduates';
-    select CDS_CODE,SCHOOL,DISTRICT,
+    title 'Positive Change in Number of Minority Graduates';
+    select CDS_CODE,SCHOOL,DISTRICT, minYr1516-minYr1415 as Different,
            (minYr1516-minYr1415)/minYr1415*100 as PercentChange 
     from Eth_Diff
 	where (minYr1516-minYr1415)/minYr1415 is not NULL
@@ -64,8 +66,8 @@ proc sql OUTOBS=5;
 	;
 Quit;
 proc sql OUTOBS=5;
-    title 'Negative Change in number of minority graduates';
-    select CDS_CODE,DISTRICT,SCHOOL,
+    title 'Negative Change in Number of Minority Graduates';
+    select CDS_CODE,DISTRICT,SCHOOL,minYr1516-minYr1415 as Different,
            (minYr1516-minYr1415)/minYr1415*100 as PercentChange  
     from Eth_Diff
 	where (minYr1516-minYr1415)/minYr1415 is not NULL and (minYr1516-minYr1415)/minYr1415 < 0
@@ -74,3 +76,95 @@ proc sql OUTOBS=5;
 Quit;
 title;
 footnote;
+
+
+
+title1
+'Research Question: What are the top 10 schools experienced the largest difference bewteen drop-out and enrollment from grade 7 to grade 12 in 2015/2016?'
+;
+
+title2
+'Rationale: It helps find out what some of the school experience imbalance number of students.' 
+;
+
+footnote1
+'Based on '
+;
+*
+Methodology: 
+
+Limitations: 
+
+Possible Follow-up Steps: 
+;	
+proc sql OUTOBS=10;
+    select ENR_SUM.CDS_CODE, ENR_SUM.DISTRICT, ENR_SUM.SCHOOL,
+	       ENR_SUM.Enr_Total, DROP_SUM.Drop_Total,
+	       ENR_SUM.Enr_Total-DROP_SUM.Drop_Total as ENRminusDROP
+	from ENR_SUM, DROP_SUM
+	where ENR_SUM.CDS_CODE=DROP_SUM.CDS_CODE
+	order by ENR_SUM.Enr_Total-DROP_SUM.Drop_Total;
+QUIT;
+title;
+footnote;
+
+
+title1
+'Research Question: Which race experienced the largest difference between drop out and enrollment in 2015/2016?'
+;
+
+title2
+'Rationale: It helps find out what race experienced the largest dispersion number of enrollment and dropout in schools.'
+;
+
+footnote1
+''
+;
+*
+Methodology: 
+
+Limitations: 
+
+Possible Follow-up Steps:  
+;
+Proc sql outobs=10;
+    select Enrollment1516.ETHNIC, sum(Enrollment1516.ENR_TOTAL) as EnrTotal,
+           sum(Race_dropout1516.DTOT) as Racedrop, Enrollment1516.ENR_Total-Race_dropout1516.DTOT as ENR_Subtract_DRP
+        from Enrollment1516, Race_dropout1516
+        where Enrollment1516.ETHNIC=Race_dropout1516.ETHNIC
+        group by Enrollment1516.ETHNIC
+        order by ENR_Subtract_DRP;
+QUIT;
+title;
+footnote;
+
+
+title1
+'Research Question: Which race experienced the largest difference between drop out and enrollment in 2015/2016?'
+;
+
+title2
+'Rationale: It helps find out what race experienced the largest dispersion number of enrollment and dropout in schools.'
+;
+
+footnote1
+''
+;
+*
+Methodology: 
+
+Limitations: 
+
+Possible Follow-up Steps:  
+;
+Proc sql outobs=10;
+    select Enrollment1516.ETHNIC, sum(Enrollment1516.ENR_TOTAL) as EnrTotal,
+           sum(Race_dropout1516.DTOT) as Racedrop, Enrollment1516.ENR_Total-Race_dropout1516.DTOT as ENR_Subtract_DRP
+        from Enrollment1516, Race_dropout1516
+        where Enrollment1516.ETHNIC=Race_dropout1516.ETHNIC
+        group by Enrollment1516.ETHNIC
+        order by Enrollment1516.ENR_Total-Race_dropout1516.DTOT;
+QUIT;
+title;
+footnote;
+
