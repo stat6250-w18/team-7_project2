@@ -275,15 +275,17 @@ run;
 data Ethgrad1415clear;
     retain
         CDS_CODE
+		DISTRICT
 		SCHOOL
 		WHITE
 		TOTAL
 	;
 	keep
 	    CDS_CODE
-	    SCHOOL
-	    WHITE
-	    TOTAL
+		DISTRICT
+		SCHOOL
+		WHITE
+		TOTAL
 	;
     set Eth_grad_1415;
 run;
@@ -294,15 +296,17 @@ run;
 data Ethgrad1516clear;
     retain
         CDS_CODE
+		DISTRICT
 		SCHOOL
-        WHITE
+		WHITE
 		TOTAL
 	;
 	keep
         CDS_CODE
+		DISTRICT
 		SCHOOL
-	    WHITE
-	    TOTAL
+		WHITE
+		TOTAL
 	;
     set Eth_grad_1516;
 run;
@@ -310,11 +314,13 @@ run;
 
 
 
-*use Proc Sql to compara number of minority graduates in 14/15 and 15/16, will be in data analysis by TC'
+*use Proc Sql to compara number of minority graduates in 14/15 and 15/16.
+This table will be used in data analysis by TC'
 ;
 proc sql;
     create table Eth_Diff as
 	    select Ethgrad1415clear.CDS_CODE, Ethgrad1415clear.SCHOOL,
+               Ethgrad1415clear.DISTRICT,
                Ethgrad1415clear.TOTAL-Ethgrad1415clear.WHITE as minYr1415,
                Ethgrad1516clear.TOTAL-Ethgrad1516clear.WHITE as minYr1516
         from Ethgrad1415clear, Ethgrad1516clear

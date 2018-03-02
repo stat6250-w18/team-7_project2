@@ -45,7 +45,7 @@ footnote4
 ;
 
 footnote5
-''
+'As being one of the competitive cities, dropping a significant '
 *
 Methodology:
 
@@ -56,7 +56,8 @@ Possible Follow-up Steps:
 
 proc sql OUTOBS=5;
     title 'Positive Change in number of minority graduates';
-    select CDS_CODE,SCHOOL, (minYr1516-minYr1415)/minYr1415*100 as PercentChange 
+    select CDS_CODE,SCHOOL,DISTRICT,
+           (minYr1516-minYr1415)/minYr1415*100 as PercentChange 
     from Eth_Diff
 	where (minYr1516-minYr1415)/minYr1415 is not NULL
 	order by abs((minYr1516-minYr1415)/minYr1415) desc
@@ -64,7 +65,8 @@ proc sql OUTOBS=5;
 Quit;
 proc sql OUTOBS=5;
     title 'Negative Change in number of minority graduates';
-    select CDS_CODE,SCHOOL,(minYr1516-minYr1415)/minYr1415*100 as PercentChange 
+    select CDS_CODE,DISTRICT,SCHOOL,
+           (minYr1516-minYr1415)/minYr1415*100 as PercentChange  
     from Eth_Diff
 	where (minYr1516-minYr1415)/minYr1415 is not NULL and (minYr1516-minYr1415)/minYr1415 < 0
 	order by abs((minYr1516-minYr1415)/minYr1415) desc
