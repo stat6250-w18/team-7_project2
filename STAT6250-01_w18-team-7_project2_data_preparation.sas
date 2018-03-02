@@ -276,4 +276,34 @@ data Eth_grad_1415_1516;
 
 run;
 
+data Ethgrad1415clear;
+    retain
+	    CDS_CODE
+		WHITE
+		TOTAL
+	;
+	keep
+	   CDS_CODE
+	   WHITE
+	   TOTAL
+	;
+    set Eth_grad_1415;
+run;
+
+data Ethgrad1516clear;
+    retain
+	    CDS_CODE
+		WHITE
+		TOTAL
+	;
+	keep
+	   CDS_CODE
+	   WHITE
+	   TOTAL
+	;
+    set Eth_grad_1516;
+run;
+
+
+
 
