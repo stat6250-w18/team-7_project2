@@ -233,44 +233,6 @@ run;
 
 
 
-* combine Eth_grad_1415 and 1516 data vertically, and compute year-over-year
-change in Total;
-proc means data=Eth_grad_1415_sorted mean sum;     
-        var TOTAL;
-        by COUNTY;
-
-        output
-        out=Eth_grad1415_means
-        sum(TOTAL) = TOTAL_sum
-    ;
-
-run;
-proc means data=Eth_grad_1516_sorted mean sum;     
-        var TOTAL;
-        by COUNTY;
-
-        output
-        out=Eth_grad1516_means
-        sum(TOTAL) = TOTAL_sum
-    ;
-
-
-
-
-data Eth_grad_1415_1516;
-
-    merge
-
-        Eth_grad1415_means
-        Eth_grad1516_means
-    ;
-
-    by COUNTY;
-
-run;
-
-
-
 *Create a table to minimize columns and rows for Eth_grad_1415;
 data Ethgrad1415clear;
     retain
