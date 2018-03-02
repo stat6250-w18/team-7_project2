@@ -315,7 +315,7 @@ run;
 
 
 *use Proc Sql to compare number of minority graduates in 14/15 and 15/16.
-This table will be used in data analysis by TC'
+This table will be used in data analysis by TC.
 ;
 proc sql;
     create table Eth_Diff as
@@ -328,8 +328,10 @@ proc sql;
         ;
 Quit;
 
+
+
 *use Proc Sql to create table to calculate the sum of enrollment and dropout
-for each school'
+for each school. This table will be used in data analysis by TC.
 ;
 proc sql;
     create table ENR_SUM as 
@@ -345,3 +347,21 @@ proc sql;
 	group by Race_dropout1516.CDS_CODE;
 QUIT;
 
+
+
+*use Proc Sql to create table to calculate the sum of enrollment and dropout
+for each race. This table will be used in data analysis by TC.
+;
+proc sql;
+    create table ENR_RACE_SUM as 
+    select Enrollment1516.ETHNIC, 
+           sum(Enrollment1516.ENR_TOTAL) as Enr_Total
+	from Enrollment1516
+	group by Enrollment1516.ETHNIC;
+QUIT;
+proc sql;
+    create table DROP_RACE_SUM as
+	select Race_dropout1516.ETHNIC, sum(Race_dropout1516.DTOT) as Drop_Total
+	from Race_dropout1516
+	group by Race_dropout1516.ETHNIC;
+QUIT;
