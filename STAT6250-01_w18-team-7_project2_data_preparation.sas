@@ -178,13 +178,10 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
     &inputDataset4URL.,
     &inputDataset4Type.
 )
-<<<<<<< HEAD
-=======
+
 
 * sort and check raw data sets for duplicates with respect to primary keys,
   data contains no blank rows so no steps to remove blanks is needed;
-
-
 proc sort
 
         nodupkey
@@ -197,7 +194,6 @@ proc sort
     ;
 
 run;
-
 proc sort
 
         nodupkey
@@ -209,7 +205,6 @@ proc sort
     ;
 
 run;
-
 proc sort
 
         nodupkey
@@ -222,7 +217,6 @@ proc sort
     ;
 
 run;
-
 proc sort
 
         nodupkey
@@ -238,9 +232,9 @@ proc sort
 run;
 
 
+
 * combine Eth_grad_1415 and 1516 data vertically, and compute year-over-year
 change in Total;
-
 proc means data=Eth_grad_1415_sorted mean sum;     
         var TOTAL;
         by COUNTY;
@@ -251,7 +245,6 @@ proc means data=Eth_grad_1415_sorted mean sum;
     ;
 
 run;
-
 proc means data=Eth_grad_1516_sorted mean sum;     
         var TOTAL;
         by COUNTY;
@@ -276,34 +269,57 @@ data Eth_grad_1415_1516;
 
 run;
 
+
+
+*Create a table to minimize columns and rows for Eth_grad_1415;
 data Ethgrad1415clear;
     retain
-	    CDS_CODE
+        CDS_CODE
+		SCHOOL
 		WHITE
 		TOTAL
 	;
 	keep
-	   CDS_CODE
-	   WHITE
-	   TOTAL
+	    CDS_CODE
+	    SCHOOL
+	    WHITE
+	    TOTAL
 	;
     set Eth_grad_1415;
 run;
 
+
+
+*Create a table to minimize columns and rows for Eth_grad_1516;
 data Ethgrad1516clear;
     retain
-	    CDS_CODE
-		WHITE
+        CDS_CODE
+		SCHOOL
+        WHITE
 		TOTAL
 	;
 	keep
-	   CDS_CODE
-	   WHITE
-	   TOTAL
+        CDS_CODE
+		SCHOOL
+	    WHITE
+	    TOTAL
 	;
     set Eth_grad_1516;
 run;
 
 
+
+
+*use Proc Sql to compara number of minority graduates in 14/15 and 15/16, will be in data analysis by TC'
+;
+proc sql;
+    create table Eth_Diff as
+	    select Ethgrad1415clear.CDS_CODE, Ethgrad1415clear.SCHOOL,
+               Ethgrad1415clear.TOTAL-Ethgrad1415clear.WHITE as minYr1415,
+               Ethgrad1516clear.TOTAL-Ethgrad1516clear.WHITE as minYr1516
+        from Ethgrad1415clear, Ethgrad1516clear
+        where Ethgrad1415clear.CDS_CODE=Ethgrad1516clear.CDS_CODE
+        ;
+Quit;
 
 
