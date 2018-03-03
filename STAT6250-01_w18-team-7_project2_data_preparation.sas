@@ -117,7 +117,7 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 
 
 
-* load raw FRPM dataset over the wire;
+* load raw dataset over the wire;
 
 %macro loadDataIfNotAlreadyAvailable(dsn,url,filetype);
     %put &=dsn;
@@ -183,7 +183,6 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 * sort and check raw data sets for duplicates with respect to primary keys,
   data contains no blank rows so no steps to remove blanks is needed;
 proc sort
-
         nodupkey
         data=Eth_grad_1415
         out=Eth_grad_1415_sorted(where=(not(missing(CDS_CODE))))
@@ -195,7 +194,6 @@ proc sort
 
 run;
 proc sort
-
         nodupkey
         data=Eth_grad1516
         out=Eth_grad1516_sorted(where=(not(missing(CDS_CODE))))
@@ -206,7 +204,6 @@ proc sort
 
 run;
 proc sort
-
         nodupkey
         data=Race_dropout1516
         out=Race_dropout1516_sorted(where=(not(missing(CDS_CODE))))
@@ -218,7 +215,6 @@ proc sort
 
 run;
 proc sort
-
         nodupkey
         data=Erollment1516
         out=Erollment1516_sorted(where=(not(missing(CDS_CODE))))
@@ -233,21 +229,22 @@ run;
 
 
 
+
 *Create a table to minimize columns and rows for Eth_grad_1415;
 data Ethgrad1415clear;
     retain
         CDS_CODE
-		DISTRICT
-		SCHOOL
-		WHITE
-		TOTAL
+        DISTRICT
+        SCHOOL
+        WHITE
+        TOTAL
 	;
 	keep
-	    CDS_CODE
-		DISTRICT
-		SCHOOL
-		WHITE
-		TOTAL
+        CDS_CODE
+        DISTRICT
+        SCHOOL
+        WHITE
+        TOTAL
 	;
     set Eth_grad_1415;
 run;
@@ -258,17 +255,17 @@ run;
 data Ethgrad1516clear;
     retain
         CDS_CODE
-		DISTRICT
-		SCHOOL
-		WHITE
-		TOTAL
+        DISTRICT
+        SCHOOL
+        WHITE
+        TOTAL
 	;
 	keep
         CDS_CODE
-		DISTRICT
-		SCHOOL
-		WHITE
-		TOTAL
+        DISTRICT
+        SCHOOL
+        WHITE
+        TOTAL
 	;
     set Eth_grad_1516;
 run;
@@ -276,7 +273,7 @@ run;
 
 
 
-*use Proc Sql to compare number of minority graduates in 14/15 and 15/16.
+*use proc Sql to compare number of minority graduates in 14/15 and 15/16.
 This table will be used in data analysis by TC.
 ;
 proc sql;
@@ -288,42 +285,42 @@ proc sql;
         from Ethgrad1415clear, Ethgrad1516clear
         where Ethgrad1415clear.CDS_CODE=Ethgrad1516clear.CDS_CODE
         ;
-Quit;
+quit;
 
 
 
-*use Proc Sql to create table to calculate the sum of enrollment and dropout
+*use proc Sql to create table to calculate the sum of enrollment and dropout
 for each school. This table will be used in data analysis by TC.
 ;
 proc sql;
     create table ENR_SUM as 
     select Enrollment1516.CDS_CODE,DISTRICT, SCHOOL, 
            sum(Enrollment1516.ENR_TOTAL) as Enr_Total
-	from Enrollment1516
-	group by Enrollment1516.CDS_CODE,DISTRICT, SCHOOL;
-QUIT;
+    from Enrollment1516
+    group by Enrollment1516.CDS_CODE,DISTRICT, SCHOOL;
+quit;
 proc sql;
     create table DROP_SUM as
-	select Race_dropout1516.CDS_CODE, sum(Race_dropout1516.DTOT) as Drop_Total
-	from Race_dropout1516
-	group by Race_dropout1516.CDS_CODE;
-QUIT;
+    select Race_dropout1516.CDS_CODE, sum(Race_dropout1516.DTOT) as Drop_Total
+    from Race_dropout1516
+    group by Race_dropout1516.CDS_CODE;
+quit;
 
 
 
-*use Proc Sql to create table to calculate the sum of enrollment and dropout
+*use proc Sql to create table to calculate the sum of enrollment and dropout
 for each race. This table will be used in data analysis by TC.
 ;
 proc sql;
     create table ENR_RACE_SUM as 
     select Enrollment1516.ETHNIC, 
            sum(Enrollment1516.ENR_TOTAL) as Enr_Total
-	from Enrollment1516
-	group by Enrollment1516.ETHNIC;
-QUIT;
+    from Enrollment1516
+    group by Enrollment1516.ETHNIC;
+quit;
 proc sql;
     create table DROP_RACE_SUM as
-	select Race_dropout1516.ETHNIC, sum(Race_dropout1516.DTOT) as Drop_Total
-	from Race_dropout1516
-	group by Race_dropout1516.ETHNIC;
-QUIT;
+    select Race_dropout1516.ETHNIC, sum(Race_dropout1516.DTOT) as Drop_Total
+    from Race_dropout1516
+    group by Race_dropout1516.ETHNIC;
+quit;
