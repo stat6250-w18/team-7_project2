@@ -46,33 +46,34 @@ footnote4
 ;
 *
 Methodology: Use Proc Sql to extract values from Eth_Diff and create a new 
-variable to calculate the percentage changes. I created two tables fro positive 
+variable to calculate the percentage changes. I created two tables for positive 
 change and negative change. 
 
 Limitations: This could not show which districts experience the dramatic boost 
 or drop in miniority graduates, which would show a bigger picture issue. 
 
 Possible Follow-up Steps:Get rid of the CDS_CODE and add district column from 
-Eth_grad_1415 and Eth_grad_1516 and group by district to show the percent change 
-for each district. 
+Eth_grad_1415 and Eth_grad_1516 and group by district to show the percent 
+change for each district. 
 ;
 
 proc sql OUTOBS=5;
     title 'Positive Change in Number of Minority Graduates';
-    select CDS_CODE,SCHOOL,DISTRICT, minYr1516-minYr1415 as Different,
+    select CDS_CODE,SCHOOL,DISTRICT, minYr1516-minYr1415 as NumberDifferent,
            (minYr1516-minYr1415)/minYr1415*100 as PercentChange 
     from Eth_Diff
-	where (minYr1516-minYr1415)/minYr1415 is not NULL
-	order by abs((minYr1516-minYr1415)/minYr1415) desc
+    where (minYr1516-minYr1415)/minYr1415 is not NULL
+    order by abs((minYr1516-minYr1415)/minYr1415) desc
 	;
 Quit;
 proc sql OUTOBS=5;
     title 'Negative Change in Number of Minority Graduates';
-    select CDS_CODE,DISTRICT,SCHOOL,minYr1516-minYr1415 as Different,
+    select CDS_CODE,DISTRICT,SCHOOL,minYr1516-minYr1415 as NumberDifferent,
            (minYr1516-minYr1415)/minYr1415*100 as PercentChange  
     from Eth_Diff
-	where (minYr1516-minYr1415)/minYr1415 is not NULL and (minYr1516-minYr1415)/minYr1415 < 0
-	order by abs((minYr1516-minYr1415)/minYr1415) desc
+    where (minYr1516-minYr1415)/minYr1415 is not NULL 
+    and (minYr1516-minYr1415)/minYr1415 < 0
+    order by abs((minYr1516-minYr1415)/minYr1415) desc
 	;
 Quit;
 title;
@@ -89,22 +90,29 @@ title2
 ;
 
 footnote1
-'Based on '
+'Based on the result, the negative sign represents that the number of enrolled student is less than the dropout number.'
+;
+
+footnote2
+'Two schools from Centinela high school have the negative number of enrollment to dropout. This should bring up the awareness to the district.'
 ;
 *
-Methodology: 
+Methodology:I used proc sql to calculate the total number of enrollment and
+dropout for all the schools from two tables. And created a variable for the 
+difference between enrollment and dropout. 
 
-Limitations: 
+Limitations:This does not show which grade has the biggest difference. 
 
-Possible Follow-up Steps: 
+Possible Follow-up Steps: I should calculate the enrollment and dropout grouped
+by school and then each grade. 
 ;	
 proc sql OUTOBS=10;
     select ENR_SUM.CDS_CODE, ENR_SUM.DISTRICT, ENR_SUM.SCHOOL,
 	       ENR_SUM.Enr_Total, DROP_SUM.Drop_Total,
 	       ENR_SUM.Enr_Total-DROP_SUM.Drop_Total as ENRminusDROP
-	from ENR_SUM, DROP_SUM
-	where ENR_SUM.CDS_CODE=DROP_SUM.CDS_CODE
-	order by ENR_SUM.Enr_Total-DROP_SUM.Drop_Total;
+    from ENR_SUM, DROP_SUM
+    where ENR_SUM.CDS_CODE=DROP_SUM.CDS_CODE
+    order by ENR_SUM.Enr_Total-DROP_SUM.Drop_Total;
 QUIT;
 title;
 footnote;
@@ -121,7 +129,7 @@ title2
 ;
 
 footnote1
-''
+'Based on the result, '
 ;
 *
 Methodology: 
@@ -130,12 +138,12 @@ Limitations:
 
 Possible Follow-up Steps:  
 ;
-Proc sql;
+proc sql;
     select Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total,
            Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total as ENR_Subtract_DRP
-        from Enr_race_sum, Drop_race_sum
-        where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
-        order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total;
+    from Enr_race_sum, Drop_race_sum
+    where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
+    order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total;
 QUIT;
 title;
 footnote
