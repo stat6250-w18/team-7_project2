@@ -103,8 +103,8 @@ difference between enrollment and dropout.
 
 Limitations:This does not show which grade has the biggest difference. 
 
-Possible Follow-up Steps: I should calculate the enrollment and dropout grouped
-by school and then each grade. 
+Possible Follow-up Steps: I should calculate the enrollment and dropout 
+grouped by school and then each grade. 
 ;	
 proc sql OUTOBS=10;
     select ENR_SUM.CDS_CODE, ENR_SUM.DISTRICT, ENR_SUM.SCHOOL,
@@ -129,14 +129,17 @@ title2
 ;
 
 footnote1
-'Based on the result, Asian (2) '
+'Based on the result, Hispanic(5) has the highest enrollent and dropout number. It can be due to the large population of hispanics.'
 ;
 *
-Methodology: 
+Methodology:Used proc sql to create a table calculating enrollment 
+and dropout number for all the race. 
 
-Limitations: 
+Limitations:This does not show which grade has the biggest difference
+in certain race and grade.
 
-Possible Follow-up Steps:  
+Possible Follow-up Steps: I should calculate the enrollment and dropout 
+grouped by school and then each grade. And then group by each race. 
 ;
 proc sql;
     select Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total,
