@@ -64,7 +64,7 @@ proc sql OUTOBS=5;
     from Eth_Diff
     where (minYr1516-minYr1415)/minYr1415 is not NULL
     order by abs((minYr1516-minYr1415)/minYr1415) desc
-	;
+    ;
 Quit;
 proc sql OUTOBS=5;
     title 'Negative Change in Number of Minority Graduates';
@@ -74,7 +74,7 @@ proc sql OUTOBS=5;
     where (minYr1516-minYr1415)/minYr1415 is not NULL 
     and (minYr1516-minYr1415)/minYr1415 < 0
     order by abs((minYr1516-minYr1415)/minYr1415) desc
-	;
+    ;
 Quit;
 title;
 footnote;
@@ -129,7 +129,7 @@ title2
 ;
 
 footnote1
-'Based on the result, '
+'Based on the result, Asian (2) '
 ;
 *
 Methodology: 
@@ -143,7 +143,7 @@ proc sql;
            Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total as ENR_Subtract_DRP
     from Enr_race_sum, Drop_race_sum
     where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
-    order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total;
+    order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total desc;
 QUIT;
 title;
 footnote
