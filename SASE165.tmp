@@ -181,7 +181,7 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 
 
 
-*build analytic dataset with the least number of columns from data Eth_grad_1415 by DL;
+*build analytic dataset with the least number of columns from data Eth_grad_1415;
 data Eth_grad1415;
     retain
         CDS_CODE
@@ -222,6 +222,7 @@ into data Eth_grad1415, and analyze the increase of graduates;
 
 proc sql;
 create table grad_1415 as
+title "California graduate in 2014-2015";
 select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
 from Eth_grad1415
 group BY county
@@ -231,25 +232,18 @@ QUIT;
 
 proc sql;
 create table grad_1516 as
-select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
-from Eth_grad1516
+title "California graduate in 2015-2016";
+select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1516
+from Eth_grad1415
 group BY county
 order BY county;
 
 QUIT;
 
 data Eth_grad1415_1516;
-    merge grad_1415 grad_1516;
+    merge grad1415 grad1516;
 	by County;
 run;
+proc print data=Eth_grad1415_1516;
 
-
-data GradChange;
-    set Eth_grad1415_1516;
-    GradChange =TotalGrad1516 - TotalGrad1415;
-    keep County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange ;
 run;
-
-Proc sort data=GradChange;
-    by GradChange;
-

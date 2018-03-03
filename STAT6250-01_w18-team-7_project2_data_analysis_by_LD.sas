@@ -57,16 +57,12 @@ illegal values, and better handle missing data, e.g., by using a previous year's
 data or a rolling average of previous years' data as a proxy.
 ; 
 
-proc print
+* combine Eth_grad_1415 and 1516 data vertically, and compute year-over-year
+change in Total graduate;
 
-        data=Eth_grad_1415_1516(obs=10)
-    ;
-    id
-        county
-    ;
-    var
-        mean sum     
-    ;
+proc print data=GradChange(obs=5);
+    var County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange;
+run;
 
 run;
 title;
