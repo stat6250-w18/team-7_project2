@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 *******************************************************************************;
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
@@ -201,6 +202,8 @@ run;
 title;
 footnote;
 =======
+=======
+>>>>>>> 670a5513fb73066b9ff2e5184274a56eda6b4c08
 *******************************************************************************;
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
@@ -402,4 +405,7 @@ run;
 
 title;
 footnote;
+<<<<<<< HEAD
+>>>>>>> 670a5513fb73066b9ff2e5184274a56eda6b4c08
+=======
 >>>>>>> 670a5513fb73066b9ff2e5184274a56eda6b4c08
