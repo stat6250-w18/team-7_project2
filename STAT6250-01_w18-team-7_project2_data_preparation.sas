@@ -180,56 +180,6 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 )
 
 
-* sort and check raw data sets for duplicates with respect to primary keys,
-  data contains no blank rows so no steps to remove blanks is needed;
-proc sort
-        nodupkey
-        data=Eth_grad_1415
-        out=Eth_grad_1415_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-        CDS_CODE
-        County
-    ;
-
-run;
-proc sort
-        nodupkey
-        data=Eth_grad1516
-        out=Eth_grad1516_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-        CDS_CODE
-    ;
-
-run;
-proc sort
-        nodupkey
-        data=Race_dropout1516
-        out=Race_dropout1516_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-        CDS_CODE
-        ETHNIC
-    ;
-
-run;
-proc sort
-        nodupkey
-        data=Erollment1516
-        out=Erollment1516_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-
-        CDS_CODE
-        ETHNIC
-    ;
-
-run;
-
-
-
-
 *Create a table to minimize columns and rows for Eth_grad_1415;
 data Ethgrad1415clear;
     retain
