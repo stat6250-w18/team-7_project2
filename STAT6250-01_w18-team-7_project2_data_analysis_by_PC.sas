@@ -20,7 +20,7 @@ See included file for dataset properties
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file 
+* load external file;
 %include '.\STAT6250-01_w18-team-7_project2_data_preparation.sas';
 
 
