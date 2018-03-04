@@ -185,15 +185,15 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 data Eth_grad1415;
     retain
         CDS_CODE
-		County
-		SCHOOL
-		TOTAL
+        County
+        SCHOOL
+        TOTAL
 	;
 	keep
-	    CDS_CODE
-		County
-		SCHOOL
-		TOTAL
+        CDS_CODE
+        County
+        SCHOOL
+        TOTAL
     ;
     set Eth_grad_1415;
 run;
@@ -223,23 +223,21 @@ run;
 *build analytic dataset with the least number of columns from Eth_grad_1516;
 data Eth_grad1516;
     retain
-    CDS_CODE
-		County
-		SCHOOL
-		TOTAL
+        CDS_CODE
+        County
+        SCHOOL
+        TOTAL
 	;
 	keep
         CDS_CODE
-		County
-		SCHOOL
-		TOTAL
- 
+        County
+        SCHOOL
+        TOTAL
 	;
     set Eth_grad_1516;
 run;
 
-*Create a table to minimize columns and rows for Eth_grad_1516;
-   
+*Create a table to minimize columns and rows for Eth_grad_1516;  
 data Ethgrad1516clear;
         retain
         CDS_CODE
@@ -265,8 +263,6 @@ run;
 
 *Calculate the sum of total graduates for each county, merge data Eth_grad1516
 into data Eth_grad1415, and analyze the increase of graduates;
-
-
 proc sql;
 create table grad_1415 as
 select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
