@@ -262,7 +262,7 @@ run;
 into data Eth_grad1415, and analyze the increase of graduates;
 
 proc sql;
-create table grad_1415 as
+    create table grad_1415 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
     from Eth_grad1415
     group BY county
