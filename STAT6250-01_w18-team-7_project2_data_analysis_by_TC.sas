@@ -5,11 +5,14 @@
 *
 This file uses the following analytic dataset to address several research
 questions regarding college-preparation trends at CA public K-12 schools
+;
+
 
 * environmental setup;
 
 * set relative file import path to current directory (using standard SAS trick);
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
+
 
 
 * load external file;
@@ -19,7 +22,6 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
-
 
 title1
 'Research Question: What are the top 5 school experienced the most percentage change of graduates in minority (non-white) from 2014/2015 to 2015/2016?'
@@ -44,6 +46,7 @@ footnote3
 footnote4
 'The most negative change in number of miniority graduates is 100%. However, the number difference is not significant'
 ;
+
 *
 Methodology: Use Proc Sql to extract values from Eth_Diff and create a new 
 variable to calculate the percentage changes. I created two tables for positive 
@@ -65,7 +68,7 @@ proc sql OUTOBS=5;
     where (minYr1516-minYr1415)/minYr1415 is not NULL
     order by abs((minYr1516-minYr1415)/minYr1415) desc
     ;
-Quit;
+quit;
 proc sql OUTOBS=5;
     title 'Negative Change in Number of Minority Graduates';
     select CDS_CODE,DISTRICT,SCHOOL,minYr1516-minYr1415 as NumberDifferent,
@@ -75,11 +78,15 @@ proc sql OUTOBS=5;
     and (minYr1516-minYr1415)/minYr1415 < 0
     order by abs((minYr1516-minYr1415)/minYr1415) desc
     ;
-Quit;
+quit;
+
 title;
 footnote;
 
 
+*******************************************************************************;
+* Research Question Analysis Starting Point;
+*******************************************************************************;
 
 title1
 'Research Question: What are the top 10 schools experienced the largest difference bewteen drop-out and enrollment from grade 7 to grade 12 in 2015/2016?'
@@ -96,6 +103,7 @@ footnote1
 footnote2
 'Two schools from Centinela high school have the negative number of enrollment to dropout. This should bring up the awareness to the district.'
 ;
+
 *
 Methodology:I used proc sql to calculate the total number of enrollment and
 dropout for all the schools from two tables. And created a variable for the 
@@ -105,20 +113,24 @@ Limitations:This does not show which grade has the biggest difference.
 
 Possible Follow-up Steps: I should calculate the enrollment and dropout 
 grouped by school and then each grade. 
-;	
+;
+
 proc sql OUTOBS=10;
     select ENR_SUM.CDS_CODE, ENR_SUM.DISTRICT, ENR_SUM.SCHOOL,
-	       ENR_SUM.Enr_Total, DROP_SUM.Drop_Total,
-	       ENR_SUM.Enr_Total-DROP_SUM.Drop_Total as ENRminusDROP
+           ENR_SUM.Enr_Total, DROP_SUM.Drop_Total,
+           ENR_SUM.Enr_Total-DROP_SUM.Drop_Total as ENRminusDROP
     from ENR_SUM, DROP_SUM
     where ENR_SUM.CDS_CODE=DROP_SUM.CDS_CODE
     order by ENR_SUM.Enr_Total-DROP_SUM.Drop_Total;
-QUIT;
+quit;
+
 title;
 footnote;
 
 
-
+*******************************************************************************;
+* Research Question Analysis Starting Point;
+*******************************************************************************;
 
 title1
 'Research Question: Which race experienced the largest difference between drop out and enrollment in 2015/2016?'
@@ -131,6 +143,7 @@ title2
 footnote1
 'Based on the result, Hispanic(5) has the highest enrollent and dropout number. It can be due to the large population of hispanics.'
 ;
+
 *
 Methodology:Used proc sql to create a table calculating enrollment 
 and dropout number for all the race. 
@@ -141,15 +154,16 @@ in certain race and grade.
 Possible Follow-up Steps: I should calculate the enrollment and dropout 
 grouped by school and then each grade. And then group by each race. 
 ;
+
 proc sql;
     select Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total,
            Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total as ENR_Subtract_DRP
     from Enr_race_sum, Drop_race_sum
     where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
     order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total desc;
-QUIT;
+quit;
+
 title;
-footnote
-;
+footnote;
 
 
