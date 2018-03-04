@@ -180,54 +180,23 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 )
 
 
-* sort and check raw data sets for duplicates with respect to primary keys,
-  data contains no blank rows so no steps to remove blanks is needed;
-proc sort
-        nodupkey
-        data=Eth_grad_1415
-        out=Eth_grad_1415_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
+
+*build analytic dataset with the least number of columns from data Eth_grad_1415 by DL;
+data Eth_grad1415;
+    retain
         CDS_CODE
-        County
+		County
+		SCHOOL
+		TOTAL
+	;
+	keep
+	    CDS_CODE
+		County
+		SCHOOL
+		TOTAL
     ;
-
+    set Eth_grad_1415;
 run;
-proc sort
-        nodupkey
-        data=Eth_grad1516
-        out=Eth_grad1516_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-        CDS_CODE
-    ;
-
-run;
-proc sort
-        nodupkey
-        data=Race_dropout1516
-        out=Race_dropout1516_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-        CDS_CODE
-        ETHNIC
-    ;
-
-run;
-proc sort
-        nodupkey
-        data=Erollment1516
-        out=Erollment1516_sorted(where=(not(missing(CDS_CODE))))
-    ;
-    by
-
-        CDS_CODE
-        ETHNIC
-    ;
-
-run;
-
-
 
 
 *Create a table to minimize columns and rows for Eth_grad_1415;
@@ -251,9 +220,28 @@ run;
 
 
 
-*Create a table to minimize columns and rows for Eth_grad_1516;
-data Ethgrad1516clear;
+*build analytic dataset with the least number of columns from Eth_grad_1516;
+data Eth_grad1516;
     retain
+    CDS_CODE
+		County
+		SCHOOL
+		TOTAL
+	;
+	keep
+        CDS_CODE
+		County
+		SCHOOL
+		TOTAL
+ 
+	;
+    set Eth_grad_1516;
+run;
+
+*Create a table to minimize columns and rows for Eth_grad_1516;
+   
+data Ethgrad1516clear;
+        retain
         CDS_CODE
         DISTRICT
         SCHOOL
@@ -266,9 +254,52 @@ data Ethgrad1516clear;
         SCHOOL
         WHITE
         TOTAL
+
 	;
     set Eth_grad_1516;
 run;
+
+
+
+
+
+*Calculate the sum of total graduates for each county, merge data Eth_grad1516
+into data Eth_grad1415, and analyze the increase of graduates;
+
+
+proc sql;
+create table grad_1415 as
+select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
+from Eth_grad1415
+group BY county
+order BY county;
+
+QUIT;
+
+proc sql;
+create table grad_1516 as
+select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
+from Eth_grad1516
+group BY county
+order BY county;
+
+QUIT;
+
+data Eth_grad1415_1516;
+    merge grad_1415 grad_1516;
+	by County;
+run;
+
+
+data GradChange;
+    set Eth_grad1415_1516;
+    GradChange =TotalGrad1516 - TotalGrad1415;
+    keep County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange ;
+run;
+
+Proc sort data=GradChange;
+    by GradChange;
+
 
 
 
