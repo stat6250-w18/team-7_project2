@@ -22,7 +22,7 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 *******************************************************************************;
 
 title1
-'Research Queation: What are the top five districts that experienced the biggest increase in "Total graduates" between Eth_grad_1415 and Eth_grad_1516?'
+'Research Queation: What are the top five districts that experienced the biggest change in "Total graduates" between Eth_grad_1415 and Eth_grad_1516?'
 ;
 
 title2
@@ -101,12 +101,11 @@ Followup Steps: A possible follow-up to this approach could use an inferential
 statistical technique like linear regression.
 ;
 
-proc means data=Eth_grad1516-sorted maxdec=0
-    ;
-    var HISPANIC AM_IND ASIAN PAC_ISLD FILINO AFRICAN_AM WHITE
-    CLASS COUNTY;
-	output out=Eth_grad1516_summary
-run;    
+proc means data=Eth_grad_1516 sum;
+  var HISPANIC AM_IND ASIAN PAC_ISLD FILIPINO AFRICAN_AM WHITE TWO_MORE_RACES TOTAL;
+run;
+
+run;
 title;
 footnote; 
 
@@ -140,9 +139,3 @@ handle missing data, e.g., by using a previous year's data or a rolling average
 of previous years' data as a proxy.
 ;
 
-proc print data=Erollment1516_sorted
-
-    var ETHNIC ENR_TOTAL
-run;
-title;
-footnote;
