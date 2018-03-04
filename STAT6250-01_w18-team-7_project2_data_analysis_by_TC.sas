@@ -32,7 +32,7 @@ title2
 ;
 
 footnote1
-'Based on the result,the percentage changes of number of miniority graduates are various positively and negatively.'
+'Based on the result, the percentage changes of number of miniority graduates are various positively and negatively.'
 ;
 
 footnote2
