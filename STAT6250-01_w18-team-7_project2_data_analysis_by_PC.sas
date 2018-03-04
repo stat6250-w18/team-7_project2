@@ -149,19 +149,17 @@ footnote1
 *
 Methodology:Used proc sql to create a table calculating enrollment 
 and dropout number for all the race. 
-Limitations:This does not show which grade has the biggest difference
-in certain race and grade.
-Possible Follow-up Steps: I should calculate the enrollment and dropout 
-grouped by school and then each grade. And then group by each race. 
+Limitations:This does not show what the relatiohship between the 
+enrollment and dropout number.
+Possible Follow-up Steps: I have to be focus on the dropout number 
+more, rather than the enrollment. Because the dropout number would 
+be the main issue, what we have to care on.
 ;
 
-proc sql;
-    select Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total,
-           Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total as ENR_Subtract_DRP
-    from Enr_race_sum, Drop_race_sum
-    where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
-    order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total desc;
-quit;
+proc print data=Enr_race_sum(obs=9);
+    var Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total;
+    
+run;
 
 title;
 footnote;
