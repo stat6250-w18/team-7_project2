@@ -258,27 +258,24 @@ run;
 
 
 
-
-
 *Calculate the sum of total graduates for each county, merge data Eth_grad1516
 into data Eth_grad1415, and analyze the increase of graduates;
+
 proc sql;
 create table grad_1415 as
-select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
-from Eth_grad1415
-group BY county
-order BY county;
-
-QUIT;
+    select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
+    from Eth_grad1415
+    group BY county
+    order BY county;
+quit;
 
 proc sql;
-create table grad_1516 as
-select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
-from Eth_grad1516
-group BY county
-order BY county;
-
-QUIT;
+    create table grad_1516 as
+    select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
+    from Eth_grad1516
+    group BY county
+    order BY county;
+quit;
 
 data Eth_grad1415_1516;
     merge grad_1415 grad_1516;
