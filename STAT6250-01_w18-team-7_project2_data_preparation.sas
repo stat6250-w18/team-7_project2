@@ -83,7 +83,6 @@ race/ethnic designation and gender by school in AY2015-2016
 ;
 
 *setup environmental parameters;
-
 %let inputDataset1URL = 
 https://github.com/stat6250/team-7_project2/blob/master/data/Eth_grad_1415.xls?raw=true
 ;
