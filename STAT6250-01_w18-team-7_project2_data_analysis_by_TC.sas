@@ -117,8 +117,8 @@ grouped by school and then each grade.
 
 proc sql OUTOBS=10;
     select ENR_SUM.CDS_CODE, ENR_SUM.DISTRICT, ENR_SUM.SCHOOL,
-	       ENR_SUM.Enr_Total, DROP_SUM.Drop_Total,
-	       ENR_SUM.Enr_Total-DROP_SUM.Drop_Total as ENRminusDROP
+           ENR_SUM.Enr_Total, DROP_SUM.Drop_Total,
+           ENR_SUM.Enr_Total-DROP_SUM.Drop_Total as ENRminusDROP
     from ENR_SUM, DROP_SUM
     where ENR_SUM.CDS_CODE=DROP_SUM.CDS_CODE
     order by ENR_SUM.Enr_Total-DROP_SUM.Drop_Total;

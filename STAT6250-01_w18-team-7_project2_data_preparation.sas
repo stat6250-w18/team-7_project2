@@ -305,7 +305,7 @@ This table will be used in data analysis by TC.
 ;
 proc sql;
     create table Eth_Diff as
-	    select Ethgrad1415clear.CDS_CODE, Ethgrad1415clear.SCHOOL,
+        select Ethgrad1415clear.CDS_CODE, Ethgrad1415clear.SCHOOL,
                Ethgrad1415clear.DISTRICT,
                Ethgrad1415clear.TOTAL-Ethgrad1415clear.WHITE as minYr1415,
                Ethgrad1516clear.TOTAL-Ethgrad1516clear.WHITE as minYr1516
