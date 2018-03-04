@@ -198,7 +198,7 @@ data Eth_grad1415;
 run;
 
 
-*Create a table to minimize columns and rows for Eth_grad_1415;
+*Create a table to minimize columns and rows for Eth_grad_1415 by TC;
 data Ethgrad1415clear;
     retain
         CDS_CODE
@@ -236,7 +236,7 @@ data Eth_grad1516;
     set Eth_grad_1516;
 run;
 
-*Create a table to minimize columns and rows for Eth_grad_1516;  
+*Create a table to minimize columns and rows for Eth_grad_1516 by TC;  
 data Ethgrad1516clear;
         retain
         CDS_CODE
