@@ -83,6 +83,7 @@ race/ethnic designation and gender by school in AY2015-2016
 ;
 
 *setup environmental parameters;
+
 %let inputDataset1URL = 
 https://github.com/stat6250/team-7_project2/blob/master/data/Eth_grad_1415.xls?raw=true
 ;
@@ -184,21 +185,21 @@ https://github.com/stat6250/team-7_project2/blob/master/data/Race_dropout1516.xl
 data Eth_grad1415;
     retain
         CDS_CODE
-        County
-        SCHOOL
-        TOTAL
+		County
+		SCHOOL
+		TOTAL
 	;
 	keep
-        CDS_CODE
-        County
-        SCHOOL
-        TOTAL
+	    CDS_CODE
+		County
+		SCHOOL
+		TOTAL
     ;
     set Eth_grad_1415;
 run;
 
 
-*Create a table to minimize columns and rows for Eth_grad_1415 by TC;
+*Create a table to minimize columns and rows for Eth_grad_1415;
 data Ethgrad1415clear;
     retain
         CDS_CODE
@@ -222,21 +223,23 @@ run;
 *build analytic dataset with the least number of columns from Eth_grad_1516;
 data Eth_grad1516;
     retain
-        CDS_CODE
-        County
-        SCHOOL
-        TOTAL
+    CDS_CODE
+		County
+		SCHOOL
+		TOTAL
 	;
 	keep
         CDS_CODE
-        County
-        SCHOOL
-        TOTAL
+		County
+		SCHOOL
+		TOTAL
+ 
 	;
     set Eth_grad_1516;
 run;
 
-*Create a table to minimize columns and rows for Eth_grad_1516 by TC;  
+*Create a table to minimize columns and rows for Eth_grad_1516;
+   
 data Ethgrad1516clear;
         retain
         CDS_CODE
@@ -260,6 +263,7 @@ run;
 
 *Calculate the sum of total graduates for each county, merge data Eth_grad1516
 into data Eth_grad1415, and analyze the increase of graduates;
+
 proc sql;
     create table grad_1415 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
@@ -268,7 +272,6 @@ proc sql;
     order BY county;
 quit;
 
-
 proc sql;
     create table grad_1516 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
@@ -276,7 +279,6 @@ proc sql;
     group BY county
     order BY county;
 quit;
-
 
 
 data Eth_grad1415_1516;
@@ -291,9 +293,18 @@ data GradChange;
     keep County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange ;
 run;
 
-
-proc sort data=GradChange;
+Proc sort data=GradChange;
     by GradChange;
+
+
+proc sql;
+    create table Eth_Drop as
+	select ETHNIC, sum(ETOT) as ETotalDrop, sum(DTOT) as DTotalDrop, 
+           sum(calculated ETotalDrop, calculated DTotalDrop) as TotalDrop
+	from Race_dropout1516
+	group by ETHNIC
+	order by ETHNIC;
+quit;
 
 
 
@@ -304,14 +315,14 @@ This table will be used in data analysis by TC.
 ;
 proc sql;
     create table Eth_Diff as
-    select Ethgrad1415clear.CDS_CODE, Ethgrad1415clear.SCHOOL,
-           Ethgrad1415clear.DISTRICT,
-           Ethgrad1415clear.TOTAL-Ethgrad1415clear.WHITE as minYr1415,
-           Ethgrad1516clear.TOTAL-Ethgrad1516clear.WHITE as minYr1516
-    from Ethgrad1415clear, Ethgrad1516clear
-    where Ethgrad1415clear.CDS_CODE=Ethgrad1516clear.CDS_CODE;
+	    select Ethgrad1415clear.CDS_CODE, Ethgrad1415clear.SCHOOL,
+               Ethgrad1415clear.DISTRICT,
+               Ethgrad1415clear.TOTAL-Ethgrad1415clear.WHITE as minYr1415,
+               Ethgrad1516clear.TOTAL-Ethgrad1516clear.WHITE as minYr1516
+        from Ethgrad1415clear, Ethgrad1516clear
+        where Ethgrad1415clear.CDS_CODE=Ethgrad1516clear.CDS_CODE
+        ;
 quit;
-
 
 
 *use proc Sql to create table to calculate the sum of enrollment and dropout

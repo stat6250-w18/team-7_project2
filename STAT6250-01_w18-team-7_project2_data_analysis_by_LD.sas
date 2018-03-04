@@ -24,16 +24,13 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 title1
 'Research Queation: What are the top five districts that experienced the biggest change in "Total graduates" between Eth_grad_1415 and Eth_grad_1516?'
 ;
-
 title2
 'Rationale: This should help identify school districts to consider for increasing education fund in these districts.'
 ;
 
 footnote1
-'compared the totle number of Graduate in year 14-15 and year 15-16,We can find
-the biggest change of graduates from year 14-15 to 15-16.'
+'compared the totle number of Graduate in year 14-15 and year 15-16,We can find the biggest change of graduates from year 14-15 to 15-16.'
 ;
-
 footnote2
 'This change can help the california government make right decision on education.'
 ;
@@ -43,11 +40,8 @@ Note: This compares the column "Total" from Eth_grad_1415 to the column of the
 same name from Eth_grad_1516.
 
 Methodology: When combining Eth_grad_1415 with Eth_grad_1516 during data preparation,
-take the difference of values of "Total graduates" for each school and
-create a new variable called grad_change_2014_to_2015. Then,
-use proc sort to create a temporary sorted table in descending by
-grad_change_2014_to_2015. Finally, use proc print here to display the
-first ten rows of the sorted dataset.
+take the difference of values of "Total graduates" for each school and create 
+a new variable called gradchange. 
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way.
@@ -57,7 +51,7 @@ illegal values, and better handle missing data, e.g., by using a previous year's
 data or a rolling average of previous years' data as a proxy.
 ; 
 
-* combine Eth_grad_1415 and 1516 data vertically, and compute year-over-year
+*combine Eth_grad_1415 and 1516 data vertically, and compute year-over-year
 change in Total graduate;
 
 proc print data=GradChange(obs=5);
@@ -76,18 +70,15 @@ footnote;
 title1
 'Research Question: What is the percentage of ethnicity in graduates?'
 ;
-
 title2
 'Rationale: This would help analyze status and trends in the education of ethnicity.'
 ;
 
 footnote1
-'Based on descriptive statistic for data set Eth_grad_1516, the percentage of ethnicity in 
-graduates is different in each county.'
+'Based on descriptive statistic for data set Eth_grad_1516, the percentage of ethnicity in graduates is different in each county.'
 ;
 
 *
-
 Note: The columns are county and every ethnicities.
 
 Methodology: Use proc means to compute summaries of ethnicities.
@@ -115,27 +106,31 @@ footnote;
 *******************************************************************************;
 
 title1
-'Research Question: Is the dropouts related to the students’ race or enrollment?' 
+'Research Question: Is the dropouts related to the students’ race?' 
 ;
 title2
 'Rationale: This would help policy makers and educators trying to understand and solve this complex social and educational problem.'
 ;
 footnote1
-
+'Based on analysis for data Eth_drop, found some race has high drop rates.'
 ;
-
 *
 Note: This compares the column ethnic and dropout. 
 
-Methodology: When combining enrollment1516 and Race_dropout1516 during data preparation.
+Methodology: create new column for sum the number of dropouts for data set
+Race_dropout1516 in data preparation.
 
 Limitations: This methodology does not account for schools with missing data,
 nor does it attempt to validate data in any way, like filtering for values
 outside of admissable values.
 
 Followup Steps: More carefully clean the values of variables so that the
-statistics computed do not include any possible illegal values, and better
-handle missing data, e.g., by using a previous year's data or a rolling average
-of previous years' data as a proxy.
+statistics computed do not include any possible illegal values.
 ;
 
+proc print data=ETh_Drop;
+run; 
+
+run;
+title;
+footnote;
