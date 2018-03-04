@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 *******************************************************************************;
 **************** 80-character banner for column width reference ***************;
 * (set window width to banner width to calibrate line length to 80 characters *;
@@ -29,40 +27,39 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
-*
 
 title1
-'Research Question: What are the top five schools that experienced the biggest increase in "TOTAL" between Eth_grad_1415 and Eth_grad_1516?'
+'Research Question: What are the top five counties that experienced the remarkable reduced in "Total gradudte" between Eth_grad_1415 and Eth_grad_1516?'
 ;
 
 title2
-'Rationale: This should help identify schools, which may can accommodate more students based upon increasing total graduated numbers.'
+'Rationale: This should help identify counties, which may can accommodate more students based upon decreased total graduated numbers.'
 ;
 
 footnote1
-"Of the five schools with the greatest increases in between Eth_grad_1415 and Eth_grad_1516 is 940, the greatest decrease in between Eth_grad_1415 and Eth_grad_1516 is -1021."
+'Of the five counties with the greatest decreased in between Eth_grad_1415 and Eth_grad_1516 is -780, then second decrease in between Eth_grad_1415 and Eth_grad_1516 is -311.'
 ;
 
 footnote2
-"Given the magnitude of these changes, further investigation should be performed to ensure no data errors are involved."
+'Given the magnitude of these changes, further investigation should be performed to ensure no data errors are involved.'
 ;
 
 footnote3
-"However, assuming there are no data issues underlying this analysis."
+'However, assuming there are no data issues underlying this analysis.'
 ;
 
 *
-Note: This compares the column "TOTAL" from Eth_grad_1415
+Note: This compares the column "Total graduates" from Eth_grad_1415
 to the column of the same name from Eth_grad_1516.
 
 Methodology: When combining Eth_grad_1415 with Eth_grad_1516 during data 
-preparation, take the difference of values of "TOTAL" for each
-school and create a new variable called TOTAL_change_2014_to_2015. Here,
+preparation, take the difference of values of "Total graduates" for each
+school and create a new variable called grad_change_2014_to_2015. Here,
 use proc sort to create a temporary sorted table in descending by
-TOTAL_change_2014_to_2015 and then proc print to display the first five
+grad_change_2014_to_2015. Finally, use proc print to display the first five
 rows of the sorted dataset.
 
-Limitations: This methodology does not account for schools with situation
+Limitations: This methodology does not account for counties with situation
 such as the loaction, the people intensity, and whether the school is famous
 or not.
 
@@ -70,15 +67,10 @@ Followup Steps: More carefully to do the research the location, whether can
 attractive more student go to study or not.
 ;
 
-proc print
-        data=Eth_grad_1415_file(obs=5)
-    ;
-    id
-        School_Name
-    ;
-    var
-        TOTAL_change_2014_to_2015
-    ;
+proc print data=GradChange(obs=5);
+    var County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange;
+run;
+
 run;
 
 title;
@@ -88,18 +80,17 @@ footnote;
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
-*
 
 title1
-'Research Question: What are the top five schools that experienced the biggest increase in "TWO_MORE_RACES" between Eth_grad_1415 and Eth_grad_1516?
+'Research Question: What are the three counties that experienced the biggest "SchoolNumber" and remarkable reduced in "Total gradudte" between Eth_grad_1415 and Eth_grad_1516?'
 ;
 
 title2
-'Rationale: This would help inform the schools, whihc would like the international schools and can attractive more internaional students to enroll the schools.'
+'Rationale: This would help inform the counties, whihc would be likely need more fund or help to imporve the situation.'
 ;
 
 footnote1
-"Of the five schools with the greatest increases in between Eth_grad_1415 and Eth_grad_1516 is 66, the greatest decrease in between Eth_grad_1415 and Eth_grad_1516 is -78."
+"Of the three counties with the remarkable reduced in "Total graduates", the SchoolNumbers in between Eth_grad_1415 and Eth_grad_1516 is 114, the second largest one is 100."
 ;
 
 footnote2
@@ -111,301 +102,68 @@ footnote3
 ;
 
 *
-Note: This compares the column "TWO_MORE_RACES" from Eth_grad_1415
-to the column "TWO_MORE_RACES" Eth_grad_1516.
-
-Methodology: Use proc sort to create a temporary sorted table in descending by
-TWO_MORE_RACES_change_2014_to_2015 and then proc print to display the first 
-five rows of the sorted dataset.
-
-Limitations: Even though predictive modeling is specified in the research
-questions, this methodology solely relies on the data, which the school has 
-two more races students. 
-
-Followup Steps: A possible follow-up to this approach could need others source
-to help to support the prediction.
-;
-
-proc print
-        data=Eth_grad_1415_file(obs=5)
-    ;
-    id
-        School_Name
-    ;
-    var
-        Two_MORE_RACES_change_2014_to_2015
-    ;
-run;
-
-title;
-footnote;
-
-
-*******************************************************************************;
-* Research Question Analysis Starting Point;
-*******************************************************************************;
-
-title1
-'Research Question: What are the top ten schools were the minimum numbers of dropouts15-16 with highest enrollment15-16 numbers?'
-;
-
-title2
-"Rationale: This would help identify schools with significant performance of education level can keep more stduents until graduated."
-;
-
-footnote1
-"All ten schools listed appear to have extremely large numbers of enrollment15-16 with 0 numbers of dropouts15-16."
-;
-
-footnote2
-"Given the magnitude of these numbers, further investigation should be performed to ensure no data errors are involved."
-;
-
-footnote3
-"However, assuming there are no data issues underlying this analysis."
-;
-
-*
-
-Note: This compares the column "DTOT" from Race_dropouts15-16 to the column 
-"ENR_TOTAL" from enrollment15-16.
-
-Methodology: When combining Race_dropouts15-16 and enrollment15-16 during data 
-preparation, take the difference between "DTOT" in Race_dropouts15-16 and 
-"ENR_TOTAL" in enrollment15-16 for the school has same CDS_CODE.Then
-proc print to display the first 10 rows of the sorted dataset.
-
-Limitations: This methodology does not account for schools with whole CDS_CODD.
-Some CDS_CODE are not existing in the two data as same time.
-
-Followup Steps: We need more information and resource to judge whtere is great 
-school or not for the internation student.
-;
-
-proc sort
-        data=Eth_grad_1415_file
-        out=Eth_grad_1415_file_sorted
-    ;
-    by descending ENR_TOTAL;
-run;
-
-proc print data=Eth_grad_1415_file_sorted(obs=10)
-  ;
-  id 
-      CDS_CODE
-  ;
-  var 
-      ENR_TOTAL
-  ;
-run;
-
-title;
-footnote;
-=======
-=======
->>>>>>> 670a5513fb73066b9ff2e5184274a56eda6b4c08
-*******************************************************************************;
-**************** 80-character banner for column width reference ***************;
-* (set window width to banner width to calibrate line length to 80 characters *;
-*******************************************************************************;
-
-*
-This file uses the following analytic dataset to address several research
-questions regarding college-preparation trends at CA public K-12 schools
-
-Dataset Name: Eth_grad_1415_file created in external file
-STAT6250-02_s17-team-7_project2_data_preparation.sas, which is assumed to be
-in the same directory as this file
-
-See included file for dataset properties
-;
-
-* environmental setup;
-
-* set relative file import path to current directory (using standard SAS trick);
-X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
-
-
-* load external file 
-%include '.\STAT6250-01_w18-team-7_project2_data_preparation.sas';
-
-
-*******************************************************************************;
-* Research Question Analysis Starting Point;
-*******************************************************************************;
-*
-
-title1
-'Research Question: What are the top five schools that experienced the biggest increase in "TOTAL" between Eth_grad_1415 and Eth_grad_1516?'
-;
-
-title2
-'Rationale: This should help identify schools, which may can accommodate more students based upon increasing total graduated numbers.'
-;
-
-footnote1
-"Of the five schools with the greatest increases in between Eth_grad_1415 and Eth_grad_1516 is 940, the greatest decrease in between Eth_grad_1415 and Eth_grad_1516 is -1021."
-;
-
-footnote2
-"Given the magnitude of these changes, further investigation should be performed to ensure no data errors are involved."
-;
-
-footnote3
-"However, assuming there are no data issues underlying this analysis."
-;
-
-*
-Note: This compares the column "TOTAL" from Eth_grad_1415
+Note: This compares the column "Total graduates" from Eth_grad_1415
 to the column of the same name from Eth_grad_1516.
 
 Methodology: When combining Eth_grad_1415 with Eth_grad_1516 during data 
-preparation, take the difference of values of "TOTAL" for each
-school and create a new variable called TOTAL_change_2014_to_2015. Here,
+preparation, take the difference of values of "Total graduates" for each
+school and create a new variable called grad_change_2014_to_2015. Here,
 use proc sort to create a temporary sorted table in descending by
-TOTAL_change_2014_to_2015 and then proc print to display the first five
+grad_change_2014_to_2015. Finally, use proc print to display the first five
 rows of the sorted dataset.
 
-Limitations: This methodology does not account for schools with situation
-such as the loaction, the people intensity, and whether the school is famous
-or not.
-
-Followup Steps: More carefully to do the research the location, whether can 
-attractive more student go to study or not.
-;
-
-proc print
-        data=Eth_grad_1415_file(obs=5)
-    ;
-    id
-        School_Name
-    ;
-    var
-        TOTAL_change_2014_to_2015
-    ;
-run;
-
-title;
-footnote;
-
-
-*******************************************************************************;
-* Research Question Analysis Starting Point;
-*******************************************************************************;
-*
-
-title1
-'Research Question: What are the top five schools that experienced the biggest increase in "TWO_MORE_RACES" between Eth_grad_1415 and Eth_grad_1516?
-;
-
-title2
-'Rationale: This would help inform the schools, whihc would like the international schools and can attractive more internaional students to enroll the schools.'
-;
-
-footnote1
-"Of the five schools with the greatest increases in between Eth_grad_1415 and Eth_grad_1516 is 66, the greatest decrease in between Eth_grad_1415 and Eth_grad_1516 is -78."
-;
-
-footnote2
-"Given the magnitude of these changes, further investigation should be performed to ensure no data errors are involved."
-;
-
-footnote3
-"However, assuming there are no data issues underlying this analysis."
-;
-
-*
-Note: This compares the column "TWO_MORE_RACES" from Eth_grad_1415
-to the column "TWO_MORE_RACES" Eth_grad_1516.
-
-Methodology: Use proc sort to create a temporary sorted table in descending by
-TWO_MORE_RACES_change_2014_to_2015 and then proc print to display the first 
-five rows of the sorted dataset.
-
 Limitations: Even though predictive modeling is specified in the research
-questions, this methodology solely relies on the data, which the school has 
-two more races students. 
+questions, this methodology solely relies on the data, which the SchoolNumber
+may can't explain eveything why they face the remarkable reduced in Total 
+graduates. 
 
 Followup Steps: A possible follow-up to this approach could need others source
 to help to support the prediction.
 ;
 
-proc print
-        data=Eth_grad_1415_file(obs=5)
-    ;
-    id
-        School_Name
-    ;
-    var
-        Two_MORE_RACES_change_2014_to_2015
-    ;
+proc print data=GradChange(obs=5);
+    var County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange;
+run;
+
 run;
 
 title;
 footnote;
-
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
 *******************************************************************************;
 
 title1
-'Research Question: What are the top ten schools were the minimum numbers of dropouts15-16 with highest enrollment15-16 numbers?'
+'Research Question: Which are the two races experienced the largest enrollment and lowest dropout between 2015 and 2016?'
 ;
 
 title2
-"Rationale: This would help identify schools with significant performance of education level can keep more stduents until graduated."
+'Rationale: It helps find out what are the two races experienced the largest and enrollment and the lowest dropout numbers in schools.'
 ;
 
 footnote1
-"All ten schools listed appear to have extremely large numbers of enrollment15-16 with 0 numbers of dropouts15-16."
-;
-
-footnote2
-"Given the magnitude of these numbers, further investigation should be performed to ensure no data errors are involved."
-;
-
-footnote3
-"However, assuming there are no data issues underlying this analysis."
+'Based on the result, Hispanic or Latino(5) has the highest enrollent and Pacific Islander(3) has the lowest dropout number.'
 ;
 
 *
-
-Note: This compares the column "DTOT" from Race_dropouts15-16 to the column 
-"ENR_TOTAL" from enrollment15-16.
-
-Methodology: When combining Race_dropouts15-16 and enrollment15-16 during data 
-preparation, take the difference between "DTOT" in Race_dropouts15-16 and 
-"ENR_TOTAL" in enrollment15-16 for the school has same CDS_CODE.Then
-proc print to display the first 10 rows of the sorted dataset.
-
-Limitations: This methodology does not account for schools with whole CDS_CODD.
-Some CDS_CODE are not existing in the two data as same time.
-
-Followup Steps: We need more information and resource to judge whtere is great 
-school or not for the internation student.
+Methodology:Used proc sql to create a table calculating enrollment 
+and dropout number for all the race. 
+Limitations:This does not show which grade has the biggest difference
+in certain race and grade.
+Possible Follow-up Steps: I should calculate the enrollment and dropout 
+grouped by school and then each grade. And then group by each race. 
 ;
 
-proc sort
-        data=Eth_grad_1415_file
-        out=Eth_grad_1415_file_sorted
-    ;
-    by descending ENR_TOTAL;
-run;
-
-proc print data=Eth_grad_1415_file_sorted(obs=10)
-  ;
-  id 
-      CDS_CODE
-  ;
-  var 
-      ENR_TOTAL
-  ;
-run;
+proc sql;
+    select Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total,
+           Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total as ENR_Subtract_DRP
+    from Enr_race_sum, Drop_race_sum
+    where Enr_race_sum.ETHNIC=Drop_race_sum.ETHNIC
+    order by Enr_race_sum.ENR_Total-Drop_race_sum.Drop_Total desc;
+quit;
 
 title;
 footnote;
-<<<<<<< HEAD
->>>>>>> 670a5513fb73066b9ff2e5184274a56eda6b4c08
-=======
->>>>>>> 670a5513fb73066b9ff2e5184274a56eda6b4c08
+
+
