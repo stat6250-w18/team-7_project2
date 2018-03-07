@@ -48,14 +48,19 @@ footnote4
 ;
 
 *
+Note: Compare columns minYr1415 and minYr1516 from Eth_Diff. minYr1415 and
+minYr1516 represent the number of difference of White graduates and other race
+graduates from Eth_grad_1415 and Eth_grad_1516. 
+
 Methodology: Use Proc Sql to extract values from Eth_Diff and create a new 
-variable to calculate the percentage changes. I created two tables for positive 
-change and negative change. 
+variable to calculate the number difference of White and other race graduates
+from 1415 to 1516. Also, I computed the percentage changes of the difference. 
+I created two tables for positive change and negative change. 
 
 Limitations: This could not show which districts experience the dramatic boost 
 or drop in miniority graduates, which would show a bigger picture issue. 
 
-Possible Follow-up Steps:Get rid of the CDS_CODE and add district column from 
+Possible Follow-up Steps: Get rid of the CDS_CODE from 
 Eth_grad_1415 and Eth_grad_1516 and group by district to show the percent 
 change for each district. 
 ;
@@ -105,8 +110,12 @@ footnote2
 ;
 
 *
+Note: Compare columns of Enr_Total and Drop_Total from tables ENR_SUM and
+DROP_SUM. 
+
 Methodology:I used proc sql to calculate the total number of enrollment and
-dropout for all the schools from two tables. And created a variable for the 
+dropout for all the schools from two tables Enrollment1516 and
+Race_dropout1516. And created a variable for the 
 difference between enrollment and dropout. 
 
 Limitations:This does not show which grade has the biggest difference. 
@@ -145,6 +154,9 @@ footnote1
 ;
 
 *
+Note: Compare Enr_Total and Drop_Total from tables Enr_race_sum and
+Drop_race_sum
+
 Methodology:Used proc sql to create a table calculating enrollment 
 and dropout number for all the race. 
 
