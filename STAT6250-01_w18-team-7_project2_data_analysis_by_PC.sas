@@ -69,7 +69,6 @@ attractive more student go to study or not.
 
 proc print data=GradChange(obs=5);
     var County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange;
-run;
 
 run;
 
@@ -123,12 +122,12 @@ to help to support the prediction.
 
 proc print data=GradChange(obs=5);
     var County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange;
-run;
 
 run;
 
 title;
 footnote;
+
 
 *******************************************************************************;
 * Research Question Analysis Starting Point;
@@ -149,8 +148,10 @@ footnote1
 *
 Methodology:Used proc sql to create a table calculating enrollment 
 and dropout number for all the race. 
+
 Limitations:This does not show what the relatiohship between the 
 enrollment and dropout number.
+
 Possible Follow-up Steps: I have to be focus on the dropout number 
 more, rather than the enrollment. Because the dropout number would 
 be the main issue, what we have to care on.
