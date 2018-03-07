@@ -185,6 +185,7 @@ data Ethgrad1415clear;
     retain
         CDS_CODE
         DISTRICT
+        COUNTY
         SCHOOL
         WHITE
         TOTAL
@@ -192,6 +193,7 @@ data Ethgrad1415clear;
 	keep
         CDS_CODE
         DISTRICT
+        COUNTY
         SCHOOL
         WHITE
         TOTAL
@@ -205,6 +207,7 @@ data Ethgrad1516clear;
         retain
         CDS_CODE
         DISTRICT
+        COUNTY
         SCHOOL
         WHITE
         TOTAL
@@ -212,6 +215,7 @@ data Ethgrad1516clear;
 	keep
         CDS_CODE
         DISTRICT
+        COUNTY
         SCHOOL
         WHITE
         TOTAL
