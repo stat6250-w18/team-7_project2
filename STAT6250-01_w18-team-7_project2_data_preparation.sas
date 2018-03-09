@@ -232,7 +232,7 @@ into data Eth_grad1415, and analyze the increase of graduates;
 proc sql;
     create table grad_1415 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
-    from Eth_grad1415
+    from Ethgrad1415clear
     group BY county
     order BY county;
 quit;
@@ -240,7 +240,7 @@ quit;
 proc sql;
     create table grad_1516 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
-    from Eth_grad1516
+    from Ethgrad1516clear
     group BY county
     order BY county;
 quit;
@@ -264,11 +264,11 @@ proc sort data=GradChange;
 
 proc sql;
     create table Eth_Drop as
-	select ETHNIC, sum(ETOT) as ETotalDrop, sum(DTOT) as DTotalDrop, 
-           sum(calculated ETotalDrop, calculated DTotalDrop) as TotalDrop
+	select ETHNIC, sum(ETOT) as ErollTotal, sum(DTOT) as DropTotal, 
+           calculated DropTotal/calculated ErollTotal as DropRate
 	from Race_dropout1516
 	group by ETHNIC
-	order by ETHNIC;
+	order by DropRate desc;
 quit;
 
 
