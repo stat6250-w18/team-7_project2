@@ -20,7 +20,7 @@ See included file for dataset properties
 X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPATH))-%length(%sysget(SAS_EXECFILENAME))))""";
 
 
-* load external file 
+* load external file; 
 %include '.\STAT6250-01_w18-team-7_project2_data_preparation.sas';
 
 
@@ -29,17 +29,17 @@ X "cd ""%substr(%sysget(SAS_EXECFILEPATH),1,%eval(%length(%sysget(SAS_EXECFILEPA
 *******************************************************************************;
 
 title1
-'Research Queation: What are the top five districts that experienced the biggest change in "Total graduates" between Eth_grad_1415 and Eth_grad_1516?'
+'Research Queation: What are the top five school districts that experienced the most change in " Number Of Total Graduates" between 2014-2015 schoolyear and 2015-2016 schoolyear?'
 ;
 title2
-'Rationale: This should help school districts to consider what factors caused the big change of graduates in these districts.'
+'Rationale: This will help state government to identify which school districts are experiencing most change in student population.'
 ;
 
 footnote1
-'Compared the totle number of Graduate in year 14-15 and year 15-16,we can find the biggest change of graduates from year 14-15 to 15-16.'
+'Compared the totle number of students graduated,we can identify the school districts have the most change in student population.'
 ;
 footnote2
-'This change can help the california government make right decision on education.'
+'This analysis can help the California government make right decision on budget allocation.'
 ;
 
 *
@@ -75,18 +75,18 @@ footnote;
 *******************************************************************************;
 
 title1
-'Research Question: What is the highest populatipon in ethnicity among graduates?'
+'Research Question: What is the populatipon of each in ethnic group that graduates?'
 ;
 title2
 'Rationale: This would help analyze status and trends in the education of ethnicity.'
 ;
 
 footnote1
-'Based on descriptive statistic for data set Eth_grad_1516, graduates in California were made up different races.'
+'Based on descriptive statistic for data set Eth_grad_1516, graduates in California were made up different ethnic groups.'
 ;
 
 footnote2
-'Hispanic is the highest race among graduates in California, followed by White, Asian, and Filipino.'
+'Hispanic is the highest population among graduates in California, followed by White, Asian, and Filipino.'
 ;
 
 footnote3
@@ -121,16 +121,16 @@ footnote;
 *******************************************************************************;
 
 title1
-'Research Question: Is the dropouts related to the students’ race?' 
+'Research Question: Is the dropouts related to the students’ ethnic background?' 
 ;
 title2
-'Rationale: This would help policy makers and educators trying to understand and solve this complex social and educational problem.'
+'Rationale: This would help policy makers and educators understand and solve this complex social and educational issue.'
 ;
 footnote1
-'Based on analysis for data Eth_drop, found some race has high dropout rates.'
+'Based on data analysis, data indicates certain ethnic groups have higher dropout rates.'
 ;
 footnote2
-'African American,American Indian,and Hispanic have high dropout rates in California.'
+'African American,American Indian,and Hispanic have higher dropout rates in California.'
 ;
 footnote3
 '(Ethnic: 0 = Not reported, 
