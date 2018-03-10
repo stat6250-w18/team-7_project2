@@ -81,52 +81,47 @@ footnote;
 *******************************************************************************;
 
 title1
-'Research Question: What are the three counties that experienced the biggest "SchoolNumber" and remarkable reduced in "Total gradudte" between Eth_grad_1415 and Eth_grad_1516?'
+'Research Question: What kinds of the structure of population and how many graduated have the two races?'
 ;
 
 title2
-'Rationale: This would help inform the counties, whihc would be likely need more fund or help to imporve the situation.'
+'Rationale: This would help inform whcih race need more help in education and which race is the largest group.'
 ;
 
 footnote1
-"Of the three counties with the remarkable reduced in "Total graduates", the SchoolNumbers in between Eth_grad_1415 and Eth_grad_1516 is 114, the second largest one is 100."
+'It shows that Hispanic is the largest graduated group and PAC_ISLD is the lowest graduated group.'
 ;
 
 footnote2
-"Given the magnitude of these changes, further investigation should be performed to ensure no data errors are involved."
+'The two races graduated only have 10999, which means the diversity of student are not enough in same school.'
 ;
 
 footnote3
-"However, assuming there are no data issues underlying this analysis."
+'However, assuming there are no data issues underlying this analysis.'
 ;
 
 *
-Note: This compares the column "Total graduates" from Eth_grad_1415
-to the column of the same name from Eth_grad_1516.
+Note: This compares the column each ethnicities and the sum.
 
-Methodology: When combining Eth_grad_1415 with Eth_grad_1516 during data 
-preparation, take the difference of values of "Total graduates" for each
-school and create a new variable called grad_change_2014_to_2015. Here,
-use proc sort to create a temporary sorted table in descending by
-grad_change_2014_to_2015. Finally, use proc print to display the first five
-rows of the sorted dataset.
+Methodology: Use proc means to compute summaries of ethnicities.
 
 Limitations: Even though predictive modeling is specified in the research
-questions, this methodology solely relies on the data, which the SchoolNumber
-may can't explain eveything why they face the remarkable reduced in Total 
-graduates. 
+questions, this methodology solely relies on a crude descriptive technique
+by looking at correlations along quartile values, furtherore, this result 
+may not represent the real situation and can't imply that Hispanic 
+has more advantage than others races.
 
 Followup Steps: A possible follow-up to this approach could need others source
 to help to support the prediction.
 ;
 
-proc print data=GradChange(obs=5);
-    var County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange;
-
+proc means data=Eth_grad_1516 sum;
+  var HISPANIC AM_IND ASIAN PAC_ISLD FILIPINO AFRICAN_AM WHITE TWO_MORE_RACES TOTAL;
 run;
 
+run;
 title;
-footnote;
+footnote; 
 
 
 *******************************************************************************;
@@ -134,33 +129,49 @@ footnote;
 *******************************************************************************;
 
 title1
-'Research Question: Which are the two races experienced the largest enrollment and lowest dropout between 2015 and 2016?'
+'Research Question: Which are the top three ethnics experienced the higheest dropouts rates?'
 ;
 
 title2
-'Rationale: It helps find out what are the two races experienced the largest and enrollment and the lowest dropout numbers in schools.'
+'Rationale: It helps find out what are the top three ethnics experienced the higheest dropouts rates.'
 ;
 
 footnote1
-'Based on the result, Hispanic or Latino(5) has the highest enrollent and Pacific Islander(3) has the lowest dropout number.'
+'Based on the result and analytics, Not reported, African American and American Indian are the top 3 highest dropouts rates.'
 ;
+
+footnote2
+'(Ethnic: 0 = Not reported, 
+1 = American Indian or Alaska Native, 
+2 = Asian, 
+3 = Pacific Islander'
+;
+
+footnote4
+'4 = Filipino, 
+5 = Hispanic or Latino,
+6 = African American, 
+7 = White, 
+9 = Two or More Races)'
+;
+
 
 *
 Methodology:Used proc sql to create a table calculating enrollment 
-and dropout number for all the race. 
+and dropout number between the different ethnics. 
 
-Limitations:This does not show what the relatiohship between the 
-enrollment and dropout number.
+Limitations:This table does't prove the direct relatiohship between 
+the different ethnics in enrollment and dropout number is positive or 
+negative.
 
-Possible Follow-up Steps: I have to be focus on the dropout number 
-more, rather than the enrollment. Because the dropout number would 
-be the main issue, what we have to care on.
+Possible Follow-up Steps: Dropout rates may not imply the everything, 
+thus I am likey to know what the reasons contribute to the higher 
+dropouts rate, and what should we do to improve the probelms.Moreover,
+the ethnics maybe not the major problems to effect the dropout rates.
 ;
 
-proc print data=Enr_race_sum(obs=9);
-    var Enr_race_sum.ETHNIC,Enr_race_sum.ENR_Total,Drop_race_sum.Drop_Total;
-    
-run;
+proc print data=Eth_Drop;
+run; 
 
 title;
 footnote;
