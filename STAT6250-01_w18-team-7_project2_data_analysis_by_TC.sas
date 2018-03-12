@@ -7,7 +7,10 @@ This file uses the following analytic dataset to address several research
 questions regarding college-preparation trends at CA public K-12 schools
 
 Dataset Name: Enrollment1516, Eth_grad_1415, Eth_grad_1516 and Race_dropout1516
-created in 
+created in STAT6250-01_w18-team-7_project2_data_preparation.sas , which is 
+assumed to be in the same directory as this file
+
+See included file for dataset properties
 ;
 
 
