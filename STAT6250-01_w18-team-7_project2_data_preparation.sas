@@ -245,7 +245,7 @@ proc sql;
 quit;
 
 
-*merge of grad_1415 and grad_1516
+*merge of grad_1415 and grad_1516;
 data Eth_grad1415_1516;
     merge grad_1415 grad_1516;
 	by County;
