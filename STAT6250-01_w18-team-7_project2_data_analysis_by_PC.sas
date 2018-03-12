@@ -149,7 +149,7 @@ footnote3
 ;
 
 *
-Note: This compares the column enrollment number and the dropout
+Note: This compares the column enrollment number and the dropouts
 rate for each race.
 
 Methodology: Used proc sql to create a table calculating enrollment 
