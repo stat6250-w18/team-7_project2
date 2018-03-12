@@ -202,6 +202,7 @@ data Ethgrad1415clear;
 run;
 
 
+
 *Create a table to minimize columns and rows for Eth_grad_1516;
 data Ethgrad1516clear;
         retain
@@ -226,9 +227,8 @@ run;
 
 
 
-*Calculate the sum of total graduates for each county, merge data Eth_grad1516
-into data Eth_grad1415, and analyze the increase of graduates;
-
+*Calculate the sum of total graduates for each county
+as grad_1415 and grad_1516;
 proc sql;
     create table grad_1415 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
@@ -236,7 +236,6 @@ proc sql;
     group BY county
     order BY county;
 quit;
-
 proc sql;
     create table grad_1516 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TotalGrad1516
@@ -246,22 +245,30 @@ proc sql;
 quit;
 
 
+*merge of grad_1415 and grad_1516
 data Eth_grad1415_1516;
     merge grad_1415 grad_1516;
 	by County;
 run;
 
 
+
+*create a table for the graduates number changes from 1415 to 1516;
 data GradChange;
     set Eth_grad1415_1516;
     GradChange =TotalGrad1516 - TotalGrad1415;
     keep County SchoolNumber TotalGrad1415 Totalgrad1516 GradChange ;
 run;
 
+
+
+*sort out the number of graduates changes from 1415 to 1516;
 proc sort data=GradChange;
     by GradChange;
 
 
+
+*calculate the dropout over enrollement rate as Eth_Drop;
 proc sql;
     create table Eth_Drop as
 	select ETHNIC, sum(ETOT) as ErollTotal, sum(DTOT) as DropTotal, 
@@ -287,8 +294,10 @@ proc sql;
 quit;
 
 
+
 *use proc Sql to create table to calculate the sum of enrollment and dropout
-for each school. This table will be used in data analysis by TC.
+for each school as ENR_SUM and DROP_SUM. 
+These tables will be used in data analysis by TC.
 ;
 proc sql;
     create table ENR_SUM as 
@@ -307,7 +316,8 @@ quit;
 
 
 *use proc Sql to create table to calculate the sum of enrollment and dropout
-for each race. This table will be used in data analysis by TC.
+for each race as ENR_RACE_SUM and DROP_RACE_SUM.
+These tables will be used in data analysis by TC.
 ;
 proc sql;
     create table ENR_RACE_SUM as 
