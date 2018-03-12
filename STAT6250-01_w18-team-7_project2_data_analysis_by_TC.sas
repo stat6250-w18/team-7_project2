@@ -5,6 +5,9 @@
 *
 This file uses the following analytic dataset to address several research
 questions regarding college-preparation trends at CA public K-12 schools
+
+Dataset Name: Enrollment1516, Eth_grad_1415, Eth_grad_1516 and Race_dropout1516
+created in 
 ;
 
 
@@ -28,7 +31,7 @@ title1
 ;
 
 title2
-'Rationale: It helps find out if there’s any significant change of number of graduates in certain schools.'
+'Rationale: It helps find out if thereâ€™s any significant change of number of graduates in certain schools.'
 ;
 
 footnote1
