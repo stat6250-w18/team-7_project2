@@ -141,23 +141,18 @@ footnote1
 ;
 
 footnote2
-'(Ethnic: 0 = Not reported, 
-1 = American Indian or Alaska Native, 
-2 = Asian, 
-3 = Pacific Islander'
+'Furthermore, the Asian has the lowest dropouts rate with the 3rd place in enrollment number'
 ;
 
-footnote4
-'4 = Filipino, 
-5 = Hispanic or Latino,
-6 = African American, 
-7 = White, 
-9 = Two or More Races)'
+footnote3
+'However, assuming there are no data issues underlying this analysis.'
 ;
-
 
 *
-Methodology:Used proc sql to create a table calculating enrollment 
+Note: This compares the column enrollment number and the dropouts
+rate for each race.
+
+Methodology: Used proc sql to create a table calculating enrollment 
 and dropout number between the different ethnics. 
 
 Limitations:This table does't prove the direct relatiohship between 
