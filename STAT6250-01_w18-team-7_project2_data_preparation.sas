@@ -227,7 +227,8 @@ run;
 
 
 
-*Calculate the sum of total graduates for each county as grad_1415 and grad_1516;
+*Calculate the sum of total graduates for each county
+as grad_1415 and grad_1516;
 proc sql;
     create table grad_1415 as
     select county, COUNT(school) as SchoolNumber, SUM(Total) as TOtalGrad1415
@@ -251,7 +252,8 @@ data Eth_grad1415_1516;
 run;
 
 
-*create a total for the graduates number changes from 1415 to 1516
+
+*create a table for the graduates number changes from 1415 to 1516;
 data GradChange;
     set Eth_grad1415_1516;
     GradChange =TotalGrad1516 - TotalGrad1415;
@@ -259,12 +261,14 @@ data GradChange;
 run;
 
 
-*sort out the number of graduates changes from 1415 to 1516
+
+*sort out the number of graduates changes from 1415 to 1516;
 proc sort data=GradChange;
     by GradChange;
 
 
-*calculate the dropout over enrollement rate as Eth_Drop
+
+*calculate the dropout over enrollement rate as Eth_Drop;
 proc sql;
     create table Eth_Drop as
 	select ETHNIC, sum(ETOT) as ErollTotal, sum(DTOT) as DropTotal, 
