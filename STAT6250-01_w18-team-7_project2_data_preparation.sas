@@ -261,11 +261,29 @@ data GradChange;
 run;
 
 
-
 *sort out the number of graduates changes from 1415 to 1516;
 proc sort data=GradChange;
     by GradChange;
 
+
+*format variable ETHNIC of data Race_dropout1516, converting value into text; 
+proc format;
+    value ETHNIC
+    0 = 'Not reported'
+    1 = 'American Indian'
+    2 = 'Asian'
+    3 = 'Pacific Islander'
+    4 = 'Filipino'
+    5 = 'Hispanic or Latino'
+    6 = 'African American'
+    7 = 'White'
+    9 = 'Two or More Races'
+;
+run; 
+proc sort data=Race_dropout1516;
+    format ethnic ethnic.;
+    by ethnic;
+run;
 
 
 *calculate the dropout over enrollement rate as Eth_Drop;
