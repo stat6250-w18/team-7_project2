@@ -81,9 +81,26 @@ race/ethnic designation and gender by school in AY2015-2016
 
 ----
 ;
+* environmental setup;
+
+
+*format variable ETHNIC of data Race_dropout1516, converting value into text; 
+proc format;
+    value ETHNIC
+    0 = 'Not reported'
+    1 = 'American Indian'
+    2 = 'Asian'
+    3 = 'Pacific Islander'
+    4 = 'Filipino'
+    5 = 'Hispanic or Latino'
+    6 = 'African American'
+    7 = 'White'
+    9 = 'Two or More Races'
+;
+run; 
+
 
 *setup environmental parameters;
-
 %let inputDataset1URL = 
 https://github.com/stat6250/team-7_project2/blob/master/data/Eth_grad_1415.xls?raw=true
 ;
@@ -266,20 +283,7 @@ proc sort data=GradChange;
     by GradChange;
 
 
-*format variable ETHNIC of data Race_dropout1516, converting value into text; 
-proc format;
-    value ETHNIC
-    0 = 'Not reported'
-    1 = 'American Indian'
-    2 = 'Asian'
-    3 = 'Pacific Islander'
-    4 = 'Filipino'
-    5 = 'Hispanic or Latino'
-    6 = 'African American'
-    7 = 'White'
-    9 = 'Two or More Races'
-;
-run; 
+
 proc sort data=Race_dropout1516;
     format ethnic ethnic.;
     by ethnic;
