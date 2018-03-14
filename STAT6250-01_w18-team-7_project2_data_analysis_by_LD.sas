@@ -132,19 +132,7 @@ footnote1
 footnote2
 'African American,American Indian,and Hispanic have higher dropout rates in California.'
 ;
-footnote3
-'(Ethnic: 0 = Not reported, 
-1 = American Indian or Alaska Native, 
-2 = Asian, 
-3 = Pacific Islander'
-;
-footnote4
-'4 = Filipino, 
-5 = Hispanic or Latino,
-6 = African American, 
-7 = White, 
-9 = Two or More Races)'
-;
+
 
 *
 Note: This compares the column ethnic and dropout. 
