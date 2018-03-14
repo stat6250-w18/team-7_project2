@@ -79,12 +79,12 @@ race/ethnic designation and gender by school in AY2015-2016
 
 [Unique ID Schema] The column CDS_CODE is a unique id.
 
-----
+
 ;
 * environmental setup;
 
+* create output formats;
 
-*format variable ETHNIC of data Race_dropout1516, converting value into text; 
 proc format;
     value ETHNIC
     0 = 'Not reported'
@@ -283,7 +283,7 @@ proc sort data=GradChange;
     by GradChange;
 
 
-
+*format variable ETHNIC of data Race_dropout1516, converting value into text; 
 proc sort data=Race_dropout1516;
     format ethnic ethnic.;
     by ethnic;
